@@ -26,6 +26,11 @@ GET     /uploadForm                 controllers.Application.uploadForm()
 # submit upload file
 POST    /upload                     controllers.Application.upload()
 
+# Jump to uploads page
+GET     /uploadsForm                controllers.Application.uploadsForm()
+# submit uploads file
+POST    /uploads                    controllers.Application.uploads()
+
 # go to add ePub page
 GET     /addePubPage                controllers.Application.addePubPage()
 # add a ePub file

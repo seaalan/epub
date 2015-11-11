@@ -1,11 +1,15 @@
 package controllers;
 
+import com.jspsmart.upload.SmartUpload;
 import models.Epub;
 import models.Person;
 import models.User;
 import nl.siegmann.epublib.domain.Book;
 import play.mvc.Controller;
 import play.mvc.Result;
+
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.io.File;
 import java.util.Map;
@@ -17,6 +21,9 @@ import play.data.validation.Constraints.*;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.*;
 import play.mvc.Http.MultipartFormData.FilePart;
+import views.html.uploads;
+
+import javax.servlet.ServletException;
 
 public class Application extends Controller {
     
@@ -33,9 +40,7 @@ public class Application extends Controller {
         }
     }
 
-    public static Result upload() {
-        MultipartFormData body = request().body().asMultipartFormData();
-        FilePart picture = body.getFile("picture");
+    public static boolean toupload(FilePart picture) {
         if (picture != null) {
             String fileName = picture.getFilename();
             String contentType = picture.getContentType();
@@ -44,7 +49,18 @@ public class Application extends Controller {
             File root = Play.application().path();
             // save file to the disk
             file.renameTo(new File(root, "/public/uploads/" + fileName));
-            return ok(fileName + " " + contentType + " uploaded");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static Result upload() {
+        MultipartFormData body = request().body().asMultipartFormData();
+        FilePart picture = body.getFile("picture");
+        boolean isSuccess = toupload(picture);
+        if (isSuccess) {
+            return ok("uploaded success");
         } else {
             return badRequest("not a valid file");
         }
@@ -52,6 +68,26 @@ public class Application extends Controller {
 
     public static Result uploadForm() {
         return ok(views.html.upload.render());
+    }
+
+    public static Result uploads() {
+        MultipartFormData body = request().body().asMultipartFormData();
+        List<FilePart> pictures = body.getFiles();
+        boolean isSuccess = false;
+        int successCount = 0;
+        for(FilePart picture : pictures){
+            isSuccess = toupload(picture);
+            if(isSuccess) successCount++;
+        }
+        if (isSuccess) {
+            return ok(successCount + " files uploaded success");
+        } else {
+            return badRequest("uploaded fail");
+        }
+    }
+
+    public static Result uploadsForm() {
+        return ok(views.html.uploads.render());
     }
 
     public static class Registration {

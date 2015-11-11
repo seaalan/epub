@@ -1,0 +1,15 @@
+
+
+@main("Welcome to Play Framework") {
+    <div class="well">
+        @helper.form(action = routes.Application.uploads(), 'enctype -> "multipart/form-data") {
+            <input type="file" name="picture1"><br/>
+            <input type="file" name="picture2"><br/>
+            <input type="file" name="picture3">
+            <p>
+                <input type="submit">
+            </p>
+        }
+    </div>
+
+}
