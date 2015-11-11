@@ -1,0 +1,13 @@
+@(epubList: List[java.util.Map[String, Object]])
+
+@main("Welcome to Play Framework") {
+
+    <div class="well">
+        <ul>
+        @for(epub <- epubList) {
+            <li>@epub</li>
+            <li>@epub("Language")</li>
+        }
+        </ul>
+    </div>
+}

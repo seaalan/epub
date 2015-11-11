@@ -1,0 +1,13 @@
+@(epubForm: Form[models.Epub])
+
+@main("Welcome to Play Framework") {
+
+    <div class="well">
+        <h1> Add ePub </h1>
+            @helper.form(action = routes.Application.addePub()) {
+                @helper.inputText(epubForm("title"))
+                <input type="submit">
+            }
+    </div>
+
+}

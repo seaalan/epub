@@ -1,0 +1,44 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /                           controllers.Application.index()
+# add person information
+GET     /addPerson                  controllers.Application.addPerson()
+# get all persons information
+GET     /allPerson                  controllers.Application.allPerson()
+
+# Login password encryption
+GET     /bcrypt                     controllers.Application.bcrypt()
+
+# Jump to register page
+GET     /register                   controllers.Application.register()
+# submit register information
+POST    /register                   controllers.Application.postRegister()
+
+# Jump to login page
+GET     /login                      controllers.Application.login()
+# submit login information
+POST    /login                      controllers.Application.postLogin()
+
+# Jump to upload page
+GET     /uploadForm                 controllers.Application.uploadForm()
+# submit upload file
+POST    /upload                     controllers.Application.upload()
+
+# go to add ePub page
+GET     /addePubPage                controllers.Application.addePubPage()
+# add a ePub file
+POST     /addePub                   controllers.Application.addePub()
+# get ePub list
+GET     /allePub                    controllers.Application.allePub()
+# go to edit ePub page
+GET     /editePubPage/:id           controllers.Application.editePubPage(id:String)
+# edit a ePub file
+POST     /editePub                  controllers.Application.editePub()
+# edit a ePub file
+GET     /getePub                    controllers.Application.getePub()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /webjars/*file              controllers.WebJarAssets.at(file)

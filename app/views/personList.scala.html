@@ -1,0 +1,13 @@
+@(personList: List[models.Person])
+
+@main("Welcome to Play Framework") {
+
+    <div class="well">
+        <ul>
+        @for(person <- personList) {
+            <li>@person.name</li>
+        }
+        </ul>
+    </div>
+
+}

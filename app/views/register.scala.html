@@ -1,0 +1,14 @@
+@(userForm: Form[controllers.Application.Registration])
+
+@main("Welcome to Play Framework") {
+
+    <div class="well">
+        <h1> Registration </h1>
+            @helper.form(action = routes.Application.postRegister()) {
+                @helper.inputText(userForm("email"))
+                @helper.inputPassword(userForm("password"))
+                <input type="submit">
+            }
+    </div>
+
+}

@@ -1,0 +1,19 @@
+@(epubForm: Form[models.Epub],epub: models.Epub)
+
+@main("Welcome to Play Framework") {
+
+    <div class="well">
+        <h1> Edit ePub </h1>
+            @helper.form(action = routes.Application.editePub()) {
+                <dl class=" " id="title_field">
+                    <dt><label for="title">title</label></dt>
+                    <dd>
+                        <input type="hidden" id="id" name="id" value="@epub.id">
+                        <input type="text" id="title" name="title" value="@epub.title">
+                    </dd>
+                </dl>
+                <input type="submit">
+            }
+    </div>
+
+}

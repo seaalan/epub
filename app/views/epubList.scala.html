@@ -1,0 +1,22 @@
+@(epubList: List[models.Epub])
+
+@main("Welcome to Play Framework") {
+
+    <div class="well">
+        <table>
+            <tr>
+                <td>title</td>
+                <td>url</td>
+                <td>option</td>
+            </tr>
+        @for(epub <- epubList) {
+            <tr>
+                <td>@epub.title</td>
+                <td>@epub.url</td>
+                <td><a href="/editePubPage/@epub.id">edit ePub</a></td>
+            </tr>
+        }
+        </table>
+    </div>
+
+}
