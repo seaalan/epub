@@ -1,29 +1,22 @@
 package controllers;
 
-import com.jspsmart.upload.SmartUpload;
 import models.Epub;
 import models.Person;
 import models.User;
 import nl.siegmann.epublib.domain.Book;
-import play.mvc.Controller;
-import play.mvc.Result;
-
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
-import java.io.File;
-import java.util.Map;
-
 import org.mindrot.jbcrypt.BCrypt;
 import play.Play;
 import play.data.Form;
-import play.data.validation.Constraints.*;
+import play.data.validation.Constraints.Email;
+import play.data.validation.Constraints.Required;
+import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
-import play.mvc.Http.MultipartFormData.*;
 import play.mvc.Http.MultipartFormData.FilePart;
-import views.html.uploads;
+import play.mvc.Result;
 
-import javax.servlet.ServletException;
+import java.io.File;
+import java.util.List;
+import java.util.Map;
 
 public class Application extends Controller {
     
@@ -214,5 +207,20 @@ public class Application extends Controller {
         Form<Epub> epubForm = Form.form(Epub.class);
         Epub epub = Epub.findById(id);
         return ok(views.html.editepub.render(epubForm,epub));
+    }
+
+    public static Result searchePub() {
+        SearchePub.searchePub();
+        return ok("");
+    }
+
+    public static Result createePub() {
+        CreateePub.createePubFromFolder();
+        return ok("");
+    }
+
+    public static Result createePubFromCHM() {
+        CreateePub.createePubFromCHM();
+        return ok("");
     }
 }
