@@ -47,6 +47,9 @@ GET     /getePub                    controllers.Application.getePub()
 # search a ePub file
 GET     /searchePub                 controllers.Application.searchePub()
 
+# create ePub From Rss
+GET     /createePubFromRss          controllers.Application.createePubFromRss()
+
 # create a ePub file
 GET     /createePub                 controllers.Application.createePub()
 # create ePub From CHM

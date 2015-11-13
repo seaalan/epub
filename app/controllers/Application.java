@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.rssToePub.RssToEpub;
 import models.Epub;
 import models.Person;
 import models.User;
@@ -304,6 +305,14 @@ public class Application extends Controller {
         return ok("");
     }
 
+    /**
+     * create ePub file from chm file.
+     *
+     */
+    public static Result createePubFromRss() {
+        RssToEpub.rssToEpub();
+        return ok("");
+    }
 
     /**
      * Password encryption test.
