@@ -10,7 +10,6 @@ import nl.siegmann.epublib.chm.ChmParser;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.epub.EpubWriter;
 import nl.siegmann.epublib.fileset.FilesetBookCreator;
-import nl.siegmann.epublib.util.VFSUtil;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemManager;
 import org.apache.commons.vfs.VFS;
@@ -42,20 +41,21 @@ public class CreateePub {
     }
     public static void createePubFromCHM() {
         ChmParser chmParser = new ChmParser();
-        String folderPath = Play.application().path()+"/public/chm/jquery1.7.2.chm";
+        String folderPath = Play.application().path()+"/htmlhelp.zip";
         folderPath = folderPath.replace("\\", "/");
-        folderPath = folderPath.replace("/", "//");
+        folderPath = folderPath.replace("/", "/");
         File file = new File(folderPath);
         FileSystemManager manager;
         try {
-            VFSUtil vfsUtil = new VFSUtil();
-            FileObject fileObject3 = vfsUtil.resolveFileObject(folderPath);
+//            VFSUtil vfsUtil = new VFSUtil();
+//            FileObject fileObject3 = vfsUtil.resolveFileObject(folderPath);
 
 
             manager = VFS.getManager();
-            //FileObject fileObject1 = manager.resolveFile(folderPath);
+            FileObject fileObject1 = manager.toFileObject(file);
+
             //FileObject fileObject2 = manager.toFileObject(file);
-            Book book = chmParser.parseChm(fileObject3, "utf-16 be");
+            Book book = chmParser.parseChm(fileObject1);
             //output the ePub
             EpubWriter epubWriter = new EpubWriter();
             epubWriter.write(book, new FileOutputStream("title4.epub"));

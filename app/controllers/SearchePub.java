@@ -7,27 +7,42 @@ package controllers;
  */
 
 import nl.siegmann.epublib.domain.Book;
-import nl.siegmann.epublib.epub.EpubWriter;
-import nl.siegmann.epublib.fileset.FilesetBookCreator;
-import play.Play;
+import nl.siegmann.epublib.epub.EpubReader;
+import nl.siegmann.epublib.search.SearchIndex;
+import nl.siegmann.epublib.domain.Author;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class SearchePub {
 
     public static void searchePub() {
-        FilesetBookCreator filesetBookCreator = new FilesetBookCreator();
-        String s = Play.application().path()+"/public/book";
-        s.replace("/", "//");
-        File file = new File( s );
+        EpubReader epubReader = new EpubReader();
+        String url = "D:\\play\\epub\\1.epub";
+        String epubPath = url.replace("/", "//");
+        System.out.println("epubPath:" + epubPath);
+        // read epub file
+        Book book = null;
         try {
-            Book book = filesetBookCreator.createBookFromDirectory(file);
-            EpubWriter epubWriter = new EpubWriter();
-            epubWriter.write(book, new FileOutputStream("title.epub"));
+            InputStream inputStr = new FileInputStream(epubPath);
+            book = epubReader.readEpub(inputStr);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        SearchIndex searchIndex = new SearchIndex(book);
+        Book book1 = searchIndex.getBook();
+        book.getTitle();
+        System.out.print(book.getTitle());
+    }
+
+    public static void testePub() {
+        Author author = new Author("sea","alan");
+        System.out.println("Firstname:");
+        System.out.println("Firstname:"+author.getFirstname());
+        System.out.println("Lastname:"+author.getLastname());
+        System.out.println("Relator Name:"+author.getRelator().getName());
+        System.out.println("Relator Code:"+author.getRelator().getCode());
     }
 }

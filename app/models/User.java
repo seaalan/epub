@@ -1,8 +1,10 @@
 package models;
 
-import javax.persistence.*;
-import play.db.ebean.Model;
 import org.mindrot.jbcrypt.BCrypt;
+import play.db.ebean.Model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class User extends Model {
@@ -12,6 +14,7 @@ public class User extends Model {
 
     // Constructor
     public User(String email, String password) {
+        //Password encryption
         String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
         this.email = email;
         this.password = passwordHash;
