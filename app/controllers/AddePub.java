@@ -5,14 +5,14 @@ package controllers;
  *
  * Created by alex on 11/6/2015
  */
+import nl.siegmann.epublib.domain.*;
+import nl.siegmann.epublib.epub.EpubWriter;
+import org.apache.poi.hpsf.SummaryInformation;
+import play.Play;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import nl.siegmann.epublib.domain.*;
-import play.Play;
-
-import nl.siegmann.epublib.epub.EpubWriter;
 
 public class AddePub {
     private static InputStream getResource( String path ) {
@@ -101,6 +101,48 @@ public class AddePub {
 
             // Write the Book as Epub
             epubWriter.write(book, new FileOutputStream(title+".epub"));
+            return book;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Book addePub(SummaryInformation summaryInformation,String text) {
+        try {
+            // Create new Book
+            Book book = new Book();
+            Metadata metadata = book.getMetadata();
+
+            // Add the title
+            metadata.addTitle(summaryInformation.getTitle());
+            // Add an Author
+            metadata.addAuthor(new Author(summaryInformation.getAuthor()));
+            // Add Date
+            metadata.addDate(new Date(new java.util.Date()));
+            // Add Identifier (A Book's identifier. Defaults to a random UUID and scheme "UUID")
+            metadata.addIdentifier(new Identifier());
+            // Add Type
+            metadata.addType("doc");
+
+            TOCReference chapter1 =
+                    book.addSection("chapter1",
+                            new Resource( new ByteArrayInputStream(text.getBytes()), "chapter1.html" )
+                    );
+
+            List<TOCReference> tocReferences = new ArrayList<>();
+            tocReferences.add(chapter1);
+            TableOfContents tableOfContents = new TableOfContents(tocReferences);
+            // Set TableOfContents
+            book.setTableOfContents(tableOfContents);
+            // Set Spine
+            book.setSpine(new Spine(tableOfContents));
+
+            // Create EpubWriter
+            EpubWriter epubWriter = new EpubWriter();
+
+            // Write the Book as Epub
+            epubWriter.write(book, new FileOutputStream(summaryInformation.getTitle()+".epub"));
             return book;
         } catch (Exception e) {
             e.printStackTrace();

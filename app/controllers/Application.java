@@ -16,6 +16,7 @@ import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -312,6 +313,20 @@ public class Application extends Controller {
     public static Result createePubFromRss() {
         RssToEpub.rssToEpub();
         return ok("");
+    }
+
+    /**
+     * Read doc file.
+     *
+     */
+    public static Result docePub() {
+        File file = new File("D:\\play\\epub\\e.doc");
+        try {
+            DocePub.docePub(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ok("ok");
     }
 
     /**
