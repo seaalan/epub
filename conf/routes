@@ -54,8 +54,12 @@ GET     /createePubFromRss          controllers.Application.createePubFromRss()
 GET     /createePub                 controllers.Application.createePub()
 # create ePub From CHM
 GET     /createePubFromCHM          controllers.Application.createePubFromCHM()
-# read doc file
+# create ePub From doc
 GET     /docePub                    controllers.Application.docePub()
+# create ePub From txt
+GET     /txtePub                    controllers.Application.txtePub()
+# create html From doc
+GET     /docToHtml                  controllers.Application.docToHtml()
 
 
 # Map static resources from the /public folder to the /assets URL path

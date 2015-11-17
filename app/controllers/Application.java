@@ -316,7 +316,7 @@ public class Application extends Controller {
     }
 
     /**
-     * Read doc file.
+     * create ePub file from doc file.
      *
      */
     public static Result docePub() {
@@ -324,6 +324,33 @@ public class Application extends Controller {
         try {
             DocePub.docePub(file);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ok("ok");
+    }
+
+    /**
+     * create ePub file from txt file.
+     *
+     */
+    public static Result txtePub() {
+        File file = new File("D:\\play\\epub\\e.txt");
+        try {
+            TxtePub.txtePub(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ok("ok");
+    }
+
+    /**
+     * create html file from doc file.
+     *
+     */
+    public static Result docToHtml() {
+        try {
+            DocePub.docToHtml("D:\\play\\epub\\ee1.doc");
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ok("ok");

@@ -149,4 +149,73 @@ public class AddePub {
             return null;
         }
     }
+
+    public static Book addePub(File file) {
+        try {
+            // Create new Book
+            Book book = new Book();
+            Metadata metadata = book.getMetadata();
+
+            // Add the title
+            metadata.addTitle("txt");
+            // Add an Author
+            metadata.addAuthor(new Author("txt"));
+            // Add Date
+            metadata.addDate(new Date(new java.util.Date()));
+            // Add Identifier (A Book's identifier. Defaults to a random UUID and scheme "UUID")
+            metadata.addIdentifier(new Identifier());
+            // Add Type
+            metadata.addType("doc");
+
+
+            String encoding="GBK";
+            if(file.isFile() && file.exists()) { //判断文件是否存在
+                InputStreamReader read = new InputStreamReader(
+                        new FileInputStream(file), encoding);//考虑到编码格式
+                BufferedReader bufferedReader = new BufferedReader(read);
+                String lineTxt = null;
+                List<TOCReference> tocReferences = new ArrayList<>();
+                int i = 1;
+                while ((lineTxt = bufferedReader.readLine()) != null) {
+                    if(lineTxt.length()==0) continue;
+                    TOCReference chapter =
+                            book.addSection("chapter"+i,
+                                    new Resource( new ByteArrayInputStream(lineTxt.getBytes()), "chapter"+i+".html" )
+                            );
+                    tocReferences.add(chapter);
+                    i++;
+                }
+                TableOfContents tableOfContents = new TableOfContents(tocReferences);
+                // Set TableOfContents
+                book.setTableOfContents(tableOfContents);
+                // Set Spine
+                book.setSpine(new Spine(tableOfContents));
+                read.close();
+            }
+
+
+//            TOCReference chapter1 =
+//                    book.addSection("chapter1",
+//                            new Resource( new FileInputStream(file), "chapter1.html" )
+//                    );
+//
+//            List<TOCReference> tocReferences = new ArrayList<>();
+//            tocReferences.add(chapter1);
+//            TableOfContents tableOfContents = new TableOfContents(tocReferences);
+//            // Set TableOfContents
+//            book.setTableOfContents(tableOfContents);
+//            // Set Spine
+//            book.setSpine(new Spine(tableOfContents));
+
+            // Create EpubWriter
+            EpubWriter epubWriter = new EpubWriter();
+
+            // Write the Book as Epub
+            epubWriter.write(book, new FileOutputStream("txt"+".epub"));
+            return book;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -26,7 +26,7 @@ public class GetePub {
         EpubReader epubReader = new EpubReader();
 
         // get IO flow path
-        String epubPath = Play.application().path() + "/public/uploads/book5.epub";
+        String epubPath = Play.application().path() + "/public/uploads/test.epub";
         epubPath = epubPath.replace("/", "//");
 
         // read epub file
