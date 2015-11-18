@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.rssToePub.RssToEpub;
+import controllers.utility.EmailUtil;
 import models.Epub;
 import models.Person;
 import models.User;
@@ -364,6 +365,19 @@ public class Application extends Controller {
         try {
             DocePub.doc2ePub("D://eee.docx","D://");
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ok("ok");
+    }
+
+    /**
+     * create ePub file from doc file.
+     *
+     */
+    public static Result email2ePub() {
+        try {
+            EmailUtil.receive();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ok("ok");

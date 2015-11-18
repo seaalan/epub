@@ -35,7 +35,7 @@ public class CreateePub {
             Book book = filesetBookCreator.createBookFromDirectory(file,"utf-16 be");
             //output the ePub
             EpubWriter epubWriter = new EpubWriter();
-            epubWriter.write(book, new FileOutputStream("x.epub"));
+            epubWriter.write(book, new FileOutputStream("xxx.epub"));
         } catch (IOException e) {
             e.printStackTrace();
         }
