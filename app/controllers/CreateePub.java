@@ -35,11 +35,26 @@ public class CreateePub {
             Book book = filesetBookCreator.createBookFromDirectory(file,"utf-16 be");
             //output the ePub
             EpubWriter epubWriter = new EpubWriter();
-            epubWriter.write(book, new FileOutputStream("caaaa3.epub"));
+            epubWriter.write(book, new FileOutputStream("x.epub"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public static void createePubFromFolder(String folderPath, String outPath) {
+        FilesetBookCreator filesetBookCreator = new FilesetBookCreator();
+        File file = new File(folderPath);
+        try {
+            //create a ePub from folder
+            Book book = filesetBookCreator.createBookFromDirectory(file,"utf-16 be");
+            //output the ePub
+            EpubWriter epubWriter = new EpubWriter();
+            epubWriter.write(book, new FileOutputStream(outPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void createePubFromCHM() {
         ChmParser chmParser = new ChmParser();
         String folderPath = Play.application().path()+"/htmlhelp.zip";

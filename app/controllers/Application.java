@@ -349,8 +349,21 @@ public class Application extends Controller {
      */
     public static Result docToHtml() {
         try {
-            DocePub.docToHtml("D:\\play\\epub\\ee1.doc");
+            //DocePub.docToHtml("D:\\play\\epub\\ee1.doc");
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ok("ok");
+    }
+
+    /**
+     * create ePub file from doc file.
+     *
+     */
+    public static Result doc2ePub() {
+        try {
+            DocePub.doc2ePub("D://eee.docx","D://");
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return ok("ok");

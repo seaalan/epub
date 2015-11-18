@@ -60,7 +60,8 @@ GET     /docePub                    controllers.Application.docePub()
 GET     /txtePub                    controllers.Application.txtePub()
 # create html From doc
 GET     /docToHtml                  controllers.Application.docToHtml()
-
+# create ePub From doc(through folder)
+GET     /doc2ePub                   controllers.Application.doc2ePub()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
