@@ -1,7 +1,7 @@
 package controllers;
 
 import controllers.rssToePub.RssToEpub;
-import controllers.utility.EmailUtil;
+import controllers.utility.Email2HtmlUtil;
 import models.Epub;
 import models.Person;
 import models.User;
@@ -25,7 +25,6 @@ public class Application extends Controller {
 
     /**
      * jump to index page.
-     *
      */
     public static Result index() {
         //return ok(views.html.index.render("Hello Play Framework"));
@@ -33,7 +32,7 @@ public class Application extends Controller {
         String email = session("email");
         if (email != null) {
             //return ok(email);
-            return ok(views.html.index.render(email+",Hello Play Framework"));
+            return ok(views.html.index.render(email + ",Hello Play Framework"));
         } else {
             //return ok("not login");
             return redirect("/login");
@@ -42,7 +41,6 @@ public class Application extends Controller {
 
     /**
      * registration class.
-     *
      */
     public static class Registration {
         @Email
@@ -53,7 +51,6 @@ public class Application extends Controller {
 
     /**
      * jump to registration page.
-     *
      */
     public static Result register() {
         Form<Registration> userForm = Form.form(Registration.class);
@@ -62,7 +59,6 @@ public class Application extends Controller {
 
     /**
      * registration new user.
-     *
      */
     public static Result postRegister() {
         Form<Registration> userForm = Form.form(Registration.class).bindFromRequest();
@@ -73,7 +69,6 @@ public class Application extends Controller {
 
     /**
      * Login class.
-     *
      */
     public static class Login {
         @Email
@@ -91,7 +86,6 @@ public class Application extends Controller {
 
     /**
      * jump to login page.
-     *
      */
     public static Result login() {
         Form<Login> userForm = Form.form(Login.class);
@@ -100,7 +94,6 @@ public class Application extends Controller {
 
     /**
      * login one user.
-     *
      */
     public static Result postLogin() {
         Form<Login> userForm = Form.form(Login.class).bindFromRequest();
@@ -110,14 +103,13 @@ public class Application extends Controller {
         } else {
             //return ok("Valid user");
             session().clear();
-            session("email",userForm.get().email);
+            session("email", userForm.get().email);
             return redirect("/");
         }
     }
 
     /**
      * add new person to datebase.
-     *
      */
     public static Result addPerson() {
         Person p1 = new Person();
@@ -131,7 +123,6 @@ public class Application extends Controller {
 
     /**
      * get all persons from datebase.
-     *
      */
     public static Result allPerson() {
         //List<Person> persons = Person.findAll();
@@ -148,7 +139,7 @@ public class Application extends Controller {
         if (picture != null) {
             String fileName = picture.getFilename();
             String contentType = picture.getContentType();
-            File file   = picture.getFile();
+            File file = picture.getFile();
             // get the root path of the Play project
             File root = Play.application().path();
             // save file to the disk
@@ -161,7 +152,6 @@ public class Application extends Controller {
 
     /**
      * upload one file.
-     *
      */
     public static Result upload() {
         MultipartFormData body = request().body().asMultipartFormData();
@@ -176,7 +166,6 @@ public class Application extends Controller {
 
     /**
      * jump to upload one file page.
-     *
      */
     public static Result uploadForm() {
         return ok(views.html.upload.render());
@@ -184,16 +173,15 @@ public class Application extends Controller {
 
     /**
      * upload multiple file page.
-     *
      */
     public static Result uploads() {
         MultipartFormData body = request().body().asMultipartFormData();
         List<FilePart> pictures = body.getFiles();
         boolean isSuccess = false;
         int successCount = 0;
-        for(FilePart picture : pictures){
+        for (FilePart picture : pictures) {
             isSuccess = toupload(picture);
-            if(isSuccess) successCount++;
+            if (isSuccess) successCount++;
         }
         if (isSuccess) {
             return ok(successCount + " files uploaded success");
@@ -204,7 +192,6 @@ public class Application extends Controller {
 
     /**
      * jump to upload multiple file page.
-     *
      */
     public static Result uploadsForm() {
         return ok(views.html.uploads.render());
@@ -212,7 +199,6 @@ public class Application extends Controller {
 
     /**
      * jump to add ePub page.
-     *
      */
     public static Result addePubPage() {
         Form<Epub> epubForm = Form.form(Epub.class);
@@ -221,17 +207,16 @@ public class Application extends Controller {
 
     /**
      * add a new ePub file.
-     *
      */
     public static Result addePub() {
         Form<Epub> ePubForm = Form.form(Epub.class).bindFromRequest();
 
         AddePub translator = new AddePub();
         Book book = translator.addePub(ePubForm.get().title);
-        if(book != null){
+        if (book != null) {
             Epub epub = new Epub();
             epub.title = ePubForm.get().title;
-            epub.url = Play.application().path() +"\\"+ ePubForm.get().title +".epub";
+            epub.url = Play.application().path() + "\\" + ePubForm.get().title + ".epub";
             epub.save();
         }
         return ok("Saved");
@@ -239,23 +224,21 @@ public class Application extends Controller {
 
     /**
      * jump to edit ePub page.
-     *
      */
     public static Result editePubPage(String id) {
         Form<Epub> epubForm = Form.form(Epub.class);
         Epub epub = Epub.findById(id);
-        return ok(views.html.editepub.render(epubForm,epub));
+        return ok(views.html.editepub.render(epubForm, epub));
     }
 
     /**
      * edit one ePub file.
-     *
      */
     public static Result editePub() {
         EditePub translator = new EditePub();
         Form<Epub> ePubForm = Form.form(Epub.class).bindFromRequest();
         Epub epub = Epub.findById(ePubForm.get().id.toString());
-        translator.editePub(ePubForm.get().title,epub.url);
+        translator.editePub(ePubForm.get().title, epub.url);
         epub.title = ePubForm.get().title;
         epub.update();
         return ok("edit success");
@@ -263,17 +246,15 @@ public class Application extends Controller {
 
     /**
      * get one ePub information to view.
-     *
      */
     public static Result getePub() {
         GetePub translator = new GetePub();
-        List<Map<String,Object>> list = translator.getePub();
+        List<Map<String, Object>> list = translator.getePub();
         return ok(views.html.epubListDemo.render(list));
     }
 
     /**
      * get all ePub files.
-     *
      */
     public static Result allePub() {
         List<Epub> epubs = Epub.find.all();
@@ -282,7 +263,6 @@ public class Application extends Controller {
 
     /**
      * search ePub file.
-     *
      */
     public static Result searchePub() {
         SearchePub.testePub();
@@ -291,7 +271,6 @@ public class Application extends Controller {
 
     /**
      * create ePub file from folder.
-     *
      */
     public static Result createePub() {
         CreateePub.createePubFromFolder();
@@ -300,7 +279,6 @@ public class Application extends Controller {
 
     /**
      * create ePub file from chm file.
-     *
      */
     public static Result createePubFromCHM() {
         CreateePub.createePubFromCHM();
@@ -309,7 +287,6 @@ public class Application extends Controller {
 
     /**
      * create ePub file from chm file.
-     *
      */
     public static Result createePubFromRss() {
         RssToEpub.rssToEpub();
@@ -318,7 +295,6 @@ public class Application extends Controller {
 
     /**
      * create ePub file from doc file.
-     *
      */
     public static Result docePub() {
         File file = new File("D:\\play\\epub\\e.doc");
@@ -332,7 +308,6 @@ public class Application extends Controller {
 
     /**
      * create ePub file from txt file.
-     *
      */
     public static Result txtePub() {
         File file = new File("D:\\play\\epub\\e.txt");
@@ -345,25 +320,11 @@ public class Application extends Controller {
     }
 
     /**
-     * create html file from doc file.
-     *
-     */
-    public static Result docToHtml() {
-        try {
-            //DocePub.docToHtml("D:\\play\\epub\\ee1.doc");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ok("ok");
-    }
-
-    /**
      * create ePub file from doc file.
-     *
      */
-    public static Result doc2ePub() {
+    public static Result docx2ePub() {
         try {
-            DocePub.doc2ePub("D://eee.docx","D://");
+            DocePub.docx2ePub("D://eee.docx", "D://");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -371,12 +332,11 @@ public class Application extends Controller {
     }
 
     /**
-     * create ePub file from doc file.
-     *
+     * create ePub file from docx file.
      */
     public static Result email2ePub() {
         try {
-            EmailUtil.receive();
+            Email2HtmlUtil.receive();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -385,7 +345,6 @@ public class Application extends Controller {
 
     /**
      * Password encryption test.
-     *
      */
     public static Result bcrypt() {
         String passwordHash = BCrypt.hashpw("Hello", BCrypt.gensalt());

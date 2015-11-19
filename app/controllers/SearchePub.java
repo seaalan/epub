@@ -1,6 +1,6 @@
 package controllers;
 
- /**
+/**
  * Copyright 2015 Erealm Info & Tech.
  *
  * Created by alex on 11/6/2015
@@ -38,11 +38,11 @@ public class SearchePub {
     }
 
     public static void testePub() {
-        Author author = new Author("sea","alan");
+        Author author = new Author("sea", "alan");
         System.out.println("Firstname:");
-        System.out.println("Firstname:"+author.getFirstname());
-        System.out.println("Lastname:"+author.getLastname());
-        System.out.println("Relator Name:"+author.getRelator().getName());
-        System.out.println("Relator Code:"+author.getRelator().getCode());
+        System.out.println("Firstname:" + author.getFirstname());
+        System.out.println("Lastname:" + author.getLastname());
+        System.out.println("Relator Name:" + author.getRelator().getName());
+        System.out.println("Relator Code:" + author.getRelator().getCode());
     }
 }

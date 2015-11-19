@@ -1,4 +1,4 @@
-package controllers;
+package controllers.utility;
 
 import org.apache.poi.xwpf.converter.core.BasicURIResolver;
 import org.apache.poi.xwpf.converter.core.FileImageExtractor;
@@ -12,19 +12,17 @@ import java.io.*;
 
 /**
  * Copyright 2015 Erealm Info & Tech.
- * <p/>
+ * <p>
  * Created by alex on 11/17/2015
  */
-public class Word2Html {
-    private final static String  tempPath = "D://eee//folder//";
+public class Word2HtmlUtil {
+    private final static String tempPath = "D://eee//folder//";
 
     /**
      * docx格式word转换为html
      *
-     * @param fileName
-     *            docx文件路径
-     * @param outPutFile
-     *            html输出文件路径
+     * @param fileName   docx文件路径
+     * @param outPutFile html输出文件路径
      * @throws javax.xml.transform.TransformerException
      * @throws java.io.IOException
      * @throws javax.xml.parsers.ParserConfigurationException

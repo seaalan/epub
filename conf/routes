@@ -41,27 +41,25 @@ GET     /allePub                    controllers.Application.allePub()
 GET     /editePubPage/:id           controllers.Application.editePubPage(id:String)
 # edit a ePub file
 POST     /editePub                  controllers.Application.editePub()
-# edit a ePub file
+# get a ePub file（not complete）
 GET     /getePub                    controllers.Application.getePub()
 
 # search a ePub file
 GET     /searchePub                 controllers.Application.searchePub()
 
-# create ePub From Rss
+# create ePub From Rss（need to do）
 GET     /createePubFromRss          controllers.Application.createePubFromRss()
 
-# create a ePub file
+# create a ePub file（need to do）
 GET     /createePub                 controllers.Application.createePub()
-# create ePub From CHM
+# create ePub From CHM（need to do）
 GET     /createePubFromCHM          controllers.Application.createePubFromCHM()
-# create ePub From doc
+# create ePub From doc(through read)
 GET     /docePub                    controllers.Application.docePub()
-# create ePub From txt
+# create ePub From txt(through read)
 GET     /txtePub                    controllers.Application.txtePub()
-# create html From doc
-GET     /docToHtml                  controllers.Application.docToHtml()
-# create ePub From doc(through folder)
-GET     /doc2ePub                   controllers.Application.doc2ePub()
+# create ePub From docx(through folder)
+GET     /docx2ePub                  controllers.Application.docx2ePub()
 # create ePub From email
 GET     /email2ePub                 controllers.Application.email2ePub()
 

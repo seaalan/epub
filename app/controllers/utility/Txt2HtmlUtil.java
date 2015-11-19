@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
  * <p>
  * Created by alex on 11/18/2015
  */
-public class Txt2Html {
+public class Txt2HtmlUtil {
     public static void txt2Html(String title, String content, String author) {
         try {
             //模板路径

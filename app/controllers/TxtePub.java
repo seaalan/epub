@@ -9,9 +9,7 @@ import java.io.IOException;
  * Created by alex on 11/16/2015
  */
 public class TxtePub {
-    public static void txtePub(File f)throws IOException {
+    public static void txtePub(File f) throws IOException {
         AddePub.addePub(f);
     }
-
-
 }

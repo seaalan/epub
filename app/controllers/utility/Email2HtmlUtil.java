@@ -9,17 +9,13 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+
 /**
  * Copyright 2015 Erealm Info & Tech.
  * 使用POP3协议接收邮件
  * Created by alex on 11/18/2015
  */
-public class EmailUtil {
-
-
-    public static void main(String[] args) throws Exception {
-        receive();
-    }
+public class Email2HtmlUtil {
 
     /**
      * 接收邮件
@@ -64,9 +60,10 @@ public class EmailUtil {
 
     /**
      * 解析邮件
+     *
      * @param messages 要解析的邮件列表
      */
-    public static void parseMessage(Message ...messages) throws MessagingException, IOException {
+    public static void parseMessage(Message... messages) throws MessagingException, IOException {
         if (messages == null || messages.length < 1)
             throw new MessagingException("未找到要解析的邮件!");
 
@@ -87,7 +84,7 @@ public class EmailUtil {
             boolean isContainerAttachment = isContainAttachment(msg);
             System.out.println("是否包含附件：" + isContainerAttachment);
             if (isContainerAttachment) {
-                saveAttachment(msg, "c:\\mailtmp\\"+msg.getSubject() + "_"); //保存附件
+                saveAttachment(msg, "c:\\mailtmp\\" + msg.getSubject() + "_"); //保存附件
             }
             StringBuffer content = new StringBuffer(30);
             getMailTextContent(msg, content);
@@ -98,9 +95,8 @@ public class EmailUtil {
 //                    "D://email", getSubject(msg)+".html");
 
 //            String outContent = content.toString().replace("&", "&amp;");
-            writeFile(new String(content.toString().getBytes(),"GBK"));
-            Txt2Html.txt2Html("Make Html",content.toString(),"秋水");
-
+            writeFile(new String(content.toString().getBytes(), "GBK"));
+            Txt2HtmlUtil.txt2Html("Make Html", content.toString(), "秋水");
 
 
             //System.out.println("邮件正文：" + (content.length() > 100 ? content.substring(0,100) + "..." : content));
@@ -139,6 +135,7 @@ public class EmailUtil {
 
     /**
      * 获得邮件主题
+     *
      * @param msg 邮件内容
      * @return 解码后的邮件主题
      */
@@ -148,6 +145,7 @@ public class EmailUtil {
 
     /**
      * 获得邮件发件人
+     *
      * @param msg 邮件内容
      * @return 姓名 <Email地址>
      * @throws MessagingException
@@ -176,7 +174,8 @@ public class EmailUtil {
      * <p>Message.RecipientType.TO  收件人</p>
      * <p>Message.RecipientType.CC  抄送</p>
      * <p>Message.RecipientType.BCC 密送</p>
-     * @param msg 邮件内容
+     *
+     * @param msg  邮件内容
      * @param type 收件人类型
      * @return 收件人1 <邮件地址1>, 收件人2 <邮件地址2>, ...
      * @throws MessagingException
@@ -193,17 +192,18 @@ public class EmailUtil {
         if (addresss == null || addresss.length < 1)
             throw new MessagingException("没有收件人!");
         for (Address address : addresss) {
-            InternetAddress internetAddress = (InternetAddress)address;
+            InternetAddress internetAddress = (InternetAddress) address;
             receiveAddress.append(internetAddress.toUnicodeString()).append(",");
         }
 
-        receiveAddress.deleteCharAt(receiveAddress.length()-1); //删除最后一个逗号
+        receiveAddress.deleteCharAt(receiveAddress.length() - 1); //删除最后一个逗号
 
         return receiveAddress.toString();
     }
 
     /**
      * 获得邮件发送时间
+     *
      * @param msg 邮件内容
      * @return yyyy年mm月dd日 星期X HH:mm
      * @throws MessagingException
@@ -221,6 +221,7 @@ public class EmailUtil {
 
     /**
      * 判断邮件中是否包含附件
+     *
      * @param msg 邮件内容
      * @return 邮件中存在附件返回true，不存在返回false
      * @throws MessagingException
@@ -252,15 +253,16 @@ public class EmailUtil {
                 if (flag) break;
             }
         } else if (part.isMimeType("message/rfc822")) {
-            flag = isContainAttachment((Part)part.getContent());
+            flag = isContainAttachment((Part) part.getContent());
         }
         return flag;
     }
 
     /**
      * 判断邮件是否已读
+     *
      * @param msg 邮件内容
-     * @return 如果邮件已读返回true,否则返回false
+     * @return 如果邮件已读返回true, 否则返回false
      * @throws MessagingException
      */
     public static boolean isSeen(MimeMessage msg) throws MessagingException {
@@ -269,8 +271,9 @@ public class EmailUtil {
 
     /**
      * 判断邮件是否需要阅读回执
+     *
      * @param msg 邮件内容
-     * @return 需要回执返回true,否则返回false
+     * @return 需要回执返回true, 否则返回false
      * @throws MessagingException
      */
     public static boolean isReplySign(MimeMessage msg) throws MessagingException {
@@ -283,6 +286,7 @@ public class EmailUtil {
 
     /**
      * 获得邮件的优先级
+     *
      * @param msg 邮件内容
      * @return 1(High):紧急  3:普通(Normal)  5:低(Low)
      * @throws MessagingException
@@ -304,7 +308,8 @@ public class EmailUtil {
 
     /**
      * 获得邮件文本内容
-     * @param part 邮件体
+     *
+     * @param part    邮件体
      * @param content 存储邮件文本内容的字符串
      * @throws MessagingException
      * @throws IOException
@@ -315,21 +320,22 @@ public class EmailUtil {
         if (part.isMimeType("text/*") && !isContainTextAttach) {
             content.append(part.getContent().toString());
         } else if (part.isMimeType("message/rfc822")) {
-            getMailTextContent((Part)part.getContent(),content);
+            getMailTextContent((Part) part.getContent(), content);
         } else if (part.isMimeType("multipart/*")) {
             Multipart multipart = (Multipart) part.getContent();
             int partCount = multipart.getCount();
             for (int i = 0; i < partCount; i++) {
                 BodyPart bodyPart = multipart.getBodyPart(i);
-                getMailTextContent(bodyPart,content);
+                getMailTextContent(bodyPart, content);
             }
         }
     }
 
     /**
      * 保存附件
-     * @param part 邮件中多个组合体中的其中一个组合体
-     * @param destDir  附件保存目录
+     *
+     * @param part    邮件中多个组合体中的其中一个组合体
+     * @param destDir 附件保存目录
      * @throws UnsupportedEncodingException
      * @throws MessagingException
      * @throws FileNotFoundException
@@ -350,7 +356,7 @@ public class EmailUtil {
                     InputStream is = bodyPart.getInputStream();
                     saveFile(is, destDir, decodeText(bodyPart.getFileName()));
                 } else if (bodyPart.isMimeType("multipart/*")) {
-                    saveAttachment(bodyPart,destDir);
+                    saveAttachment(bodyPart, destDir);
                 } else {
                     String contentType = bodyPart.getContentType();
                     if (contentType.indexOf("name") != -1 || contentType.indexOf("application") != -1) {
@@ -359,15 +365,16 @@ public class EmailUtil {
                 }
             }
         } else if (part.isMimeType("message/rfc822")) {
-            saveAttachment((Part) part.getContent(),destDir);
+            saveAttachment((Part) part.getContent(), destDir);
         }
     }
 
     /**
      * 读取输入流中的数据保存至指定目录
-     * @param is 输入流
+     *
+     * @param is       输入流
      * @param fileName 文件名
-     * @param destDir 文件存储目录
+     * @param destDir  文件存储目录
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -387,6 +394,7 @@ public class EmailUtil {
 
     /**
      * 文本解码
+     *
      * @param encodeText 解码MimeUtility.encodeText(String text)方法编码后的文本
      * @return 解码后的文本
      * @throws UnsupportedEncodingException
