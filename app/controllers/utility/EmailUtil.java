@@ -34,7 +34,7 @@ public class EmailUtil {
         // 创建Session实例对象
         Session session = Session.getInstance(props);
         Store store = session.getStore("pop3");
-        store.connect("seaalan@163.com", "fan7442007");
+        store.connect("123@163.com", "123");
 
         // 获得收件箱
         Folder folder = store.getFolder("INBOX");
