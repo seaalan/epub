@@ -16,20 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddePub {
-    private static InputStream getResource(String path) {
-        FileInputStream stream = null;
-        try {
-            stream = new FileInputStream(new File(Play.application().path(), path));
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        return stream;
-    }
 
-    private static Resource getResource(String path, String href) throws IOException {
-        return new Resource(getResource(path), href);
-    }
-
+    /**
+     * add a epub
+     *
+     * @param title
+     * @return Book
+     */
     public static Book addePub(String title) {
         try {
             // Create new Book
@@ -109,6 +102,13 @@ public class AddePub {
         }
     }
 
+    /**
+     * convert doc file to epub file through read doc
+     *
+     * @param summaryInformation
+     * @param text
+     * @return Book
+     */
     public static Book addePub(SummaryInformation summaryInformation, String text) {
         try {
             // Create new Book
@@ -151,6 +151,12 @@ public class AddePub {
         }
     }
 
+    /**
+     * convert txt file to epub file through read txt
+     *
+     * @param file
+     * @return Book
+     */
     public static Book addePub(File file) {
         try {
             // Create new Book
@@ -168,17 +174,14 @@ public class AddePub {
             // Add Type
             metadata.addType("doc");
 
-
-            String encoding = "GBK";
             if (file.isFile() && file.exists()) { //判断文件是否存在
-                InputStreamReader read = new InputStreamReader(
-                        new FileInputStream(file), encoding);//考虑到编码格式
+                InputStreamReader read = new InputStreamReader(new FileInputStream(file), "GBK");//考虑到编码格式
                 BufferedReader bufferedReader = new BufferedReader(read);
                 String lineTxt = null;
                 List<TOCReference> tocReferences = new ArrayList<>();
                 int i = 1;
                 while ((lineTxt = bufferedReader.readLine()) != null) {
-                    if (lineTxt.length() == 0) continue;
+                    if (lineTxt.length() == 0) continue;//按txt中的每行来循环epub中的每章，txt中的空行忽略
                     TOCReference chapter =
                             book.addSection("chapter" + i,
                                     new Resource(new ByteArrayInputStream(lineTxt.getBytes()), "chapter" + i + ".html")
@@ -194,20 +197,6 @@ public class AddePub {
                 read.close();
             }
 
-
-//            TOCReference chapter1 =
-//                    book.addSection("chapter1",
-//                            new Resource( new FileInputStream(file), "chapter1.html" )
-//                    );
-//
-//            List<TOCReference> tocReferences = new ArrayList<>();
-//            tocReferences.add(chapter1);
-//            TableOfContents tableOfContents = new TableOfContents(tocReferences);
-//            // Set TableOfContents
-//            book.setTableOfContents(tableOfContents);
-//            // Set Spine
-//            book.setSpine(new Spine(tableOfContents));
-
             // Create EpubWriter
             EpubWriter epubWriter = new EpubWriter();
 
@@ -218,5 +207,19 @@ public class AddePub {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private static InputStream getResource(String resourcePath) {
+        FileInputStream stream = null;
+        try {
+            stream = new FileInputStream(new File(Play.application().path(), resourcePath));
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return stream;
+    }
+
+    private static Resource getResource(String resourcePath, String href) throws IOException {
+        return new Resource(getResource(resourcePath), href);
     }
 }

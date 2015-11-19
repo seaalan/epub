@@ -210,13 +210,14 @@ public class Application extends Controller {
      */
     public static Result addePub() {
         Form<Epub> ePubForm = Form.form(Epub.class).bindFromRequest();
+        String title = ePubForm.get().title;//from page's title
 
         AddePub translator = new AddePub();
-        Book book = translator.addePub(ePubForm.get().title);
+        Book book = translator.addePub(title);
         if (book != null) {
             Epub epub = new Epub();
-            epub.title = ePubForm.get().title;
-            epub.url = Play.application().path() + "\\" + ePubForm.get().title + ".epub";
+            epub.title = title;
+            epub.url = Play.application().path() + "\\" + title + ".epub";
             epub.save();
         }
         return ok("Saved");
@@ -281,7 +282,7 @@ public class Application extends Controller {
      * create ePub file from chm file.
      */
     public static Result createePubFromCHM() {
-        CreateePub.createePubFromCHM();
+//        CreateePub.createePubFromCHM();
         return ok("");
     }
 
@@ -312,7 +313,8 @@ public class Application extends Controller {
     public static Result txtePub() {
         File file = new File("D:\\play\\epub\\e.txt");
         try {
-            TxtePub.txtePub(file);
+//            TxtePub.txtePub(file);
+            TxtePub.txt2ePub("D:\\play\\epub\\e.txt","");
         } catch (IOException e) {
             e.printStackTrace();
         }

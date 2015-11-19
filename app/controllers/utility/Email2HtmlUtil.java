@@ -12,13 +12,14 @@ import java.util.Properties;
 
 /**
  * Copyright 2015 Erealm Info & Tech.
- * 使用POP3协议接收邮件
+ * <p>
+ * Use POP3 protocol to receive email
  * Created by alex on 11/18/2015
  */
 public class Email2HtmlUtil {
 
     /**
-     * 接收邮件
+     * receive email
      */
     public static void receive() throws Exception {
         // 准备连接服务器的会话信息
@@ -106,7 +107,7 @@ public class Email2HtmlUtil {
     }
 
     /**
-     * 写文件
+     * write file
      *
      * @param s
      */
@@ -134,22 +135,20 @@ public class Email2HtmlUtil {
     }
 
     /**
-     * 获得邮件主题
+     * get email subject
      *
-     * @param msg 邮件内容
-     * @return 解码后的邮件主题
+     * @param msg email content
+     * @return After decoding the message subject
      */
     public static String getSubject(MimeMessage msg) throws UnsupportedEncodingException, MessagingException {
         return MimeUtility.decodeText(msg.getSubject());
     }
 
     /**
-     * 获得邮件发件人
+     * get email sender
      *
-     * @param msg 邮件内容
-     * @return 姓名 <Email地址>
-     * @throws MessagingException
-     * @throws UnsupportedEncodingException
+     * @param msg email content
+     * @return name <email address>
      */
     public static String getFrom(MimeMessage msg) throws MessagingException, UnsupportedEncodingException {
         String from = "";
@@ -178,7 +177,6 @@ public class Email2HtmlUtil {
      * @param msg  邮件内容
      * @param type 收件人类型
      * @return 收件人1 <邮件地址1>, 收件人2 <邮件地址2>, ...
-     * @throws MessagingException
      */
     public static String getReceiveAddress(MimeMessage msg, Message.RecipientType type) throws MessagingException {
         StringBuffer receiveAddress = new StringBuffer();
@@ -206,7 +204,6 @@ public class Email2HtmlUtil {
      *
      * @param msg 邮件内容
      * @return yyyy年mm月dd日 星期X HH:mm
-     * @throws MessagingException
      */
     public static String getSentDate(MimeMessage msg, String pattern) throws MessagingException {
         Date receivedDate = msg.getSentDate();
@@ -222,10 +219,8 @@ public class Email2HtmlUtil {
     /**
      * 判断邮件中是否包含附件
      *
-     * @param msg 邮件内容
+     * @param part 邮件内容
      * @return 邮件中存在附件返回true，不存在返回false
-     * @throws MessagingException
-     * @throws IOException
      */
     public static boolean isContainAttachment(Part part) throws MessagingException, IOException {
         boolean flag = false;
@@ -263,7 +258,6 @@ public class Email2HtmlUtil {
      *
      * @param msg 邮件内容
      * @return 如果邮件已读返回true, 否则返回false
-     * @throws MessagingException
      */
     public static boolean isSeen(MimeMessage msg) throws MessagingException {
         return msg.getFlags().contains(Flags.Flag.SEEN);
@@ -274,7 +268,6 @@ public class Email2HtmlUtil {
      *
      * @param msg 邮件内容
      * @return 需要回执返回true, 否则返回false
-     * @throws MessagingException
      */
     public static boolean isReplySign(MimeMessage msg) throws MessagingException {
         boolean replySign = false;
@@ -289,7 +282,6 @@ public class Email2HtmlUtil {
      *
      * @param msg 邮件内容
      * @return 1(High):紧急  3:普通(Normal)  5:低(Low)
-     * @throws MessagingException
      */
     public static String getPriority(MimeMessage msg) throws MessagingException {
         String priority = "普通";
@@ -311,8 +303,6 @@ public class Email2HtmlUtil {
      *
      * @param part    邮件体
      * @param content 存储邮件文本内容的字符串
-     * @throws MessagingException
-     * @throws IOException
      */
     public static void getMailTextContent(Part part, StringBuffer content) throws MessagingException, IOException {
         //如果是文本类型的附件，通过getContent方法可以取到文本内容，但这不是我们需要的结果，所以在这里要做判断
@@ -336,10 +326,6 @@ public class Email2HtmlUtil {
      *
      * @param part    邮件中多个组合体中的其中一个组合体
      * @param destDir 附件保存目录
-     * @throws UnsupportedEncodingException
-     * @throws MessagingException
-     * @throws FileNotFoundException
-     * @throws IOException
      */
     public static void saveAttachment(Part part, String destDir) throws UnsupportedEncodingException, MessagingException,
             FileNotFoundException, IOException {
@@ -375,8 +361,6 @@ public class Email2HtmlUtil {
      * @param is       输入流
      * @param fileName 文件名
      * @param destDir  文件存储目录
-     * @throws FileNotFoundException
-     * @throws IOException
      */
     private static void saveFile(InputStream is, String destDir, String fileName)
             throws FileNotFoundException, IOException {
@@ -397,7 +381,6 @@ public class Email2HtmlUtil {
      *
      * @param encodeText 解码MimeUtility.encodeText(String text)方法编码后的文本
      * @return 解码后的文本
-     * @throws UnsupportedEncodingException
      */
     public static String decodeText(String encodeText) throws UnsupportedEncodingException {
         if (encodeText == null || "".equals(encodeText)) {

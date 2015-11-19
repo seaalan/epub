@@ -24,29 +24,25 @@ public class DocePub {
         Range rang = doc.getRange();
         String text = rang.text().toString();
         SummaryInformation summaryInformation = doc.getSummaryInformation();
-//        String Title = summaryInformation.getTitle();
-//        String Author = summaryInformation.getAuthor();
         fis.close();
         AddePub.addePub(summaryInformation, text);
     }
 
-    public static void docx2ePub(String fileName, String outPutFile) throws IOException {
-        System.out.println(fileName);
-        System.out.println(StringUtil.getFileName(fileName, true));
-        System.out.println(StringUtil.getFileName(fileName, false));
-        //D://ee.docx
-        //D://ee//ee1.html
-        String outPutFile1 = outPutFile + StringUtil.getFileName(fileName, false) + "//" + StringUtil.getFileName(fileName, false) + ".html";
+    /**
+     * convert docx file to html file
+     *
+     * @param filePath   docx file path e.g.:D://eee.docx
+     * @param outFilePath html out path e.g.:D://
+     */
+    public static void docx2ePub(String filePath, String outFilePath) throws IOException {
+        //String nameWithSuffix = StringUtil.getFileName(fileName, true);//e.g.:eee.docx
+        String nameWithoutSuffix = StringUtil.getFileName(filePath, false);//e.g.:eee
+        String pathWithoutSuffix = outFilePath + nameWithoutSuffix + "//" + nameWithoutSuffix;//e.g.:D://eee//eee
         try {
-            //convert docx to html
-            Word2HtmlUtil.docx2Html(fileName, outPutFile1);
-            //D://ee
-            //D://ee//ee.epub
-            System.out.println(outPutFile + StringUtil.getFileName(fileName, false));
-            System.out.println(outPutFile + StringUtil.getFileName(fileName, false) + "//" + StringUtil.getFileName(fileName, false) + ".epub");
-            //
-            CreateePub.createePubFromFolder(outPutFile + StringUtil.getFileName(fileName, false),
-                    outPutFile + StringUtil.getFileName(fileName, false) + "//" + StringUtil.getFileName(fileName, false) + ".epub");
+            //one: convert docx to html into a folder
+            Word2HtmlUtil.docx2Html(filePath, pathWithoutSuffix + ".html");
+            //two: create epub from html folder
+            CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub");
         } catch (TransformerException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {

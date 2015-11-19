@@ -16,28 +16,14 @@ import java.util.List;
 
 public class EditePub {
 
-    public static void editePub(String title, String url) {
+    public static void editePub(String title, String filePath) {
         EpubReader epubReader = new EpubReader();
 
-        // get IO flow path
-//        String currentPath = Thread.currentThread().getClass().getResource("/").toString();
-//        System.out.println(currentPath);
-//        String epubPath = currentPath + "epub/myBook.epub";
-//        System.out.println(epubPath);
-//        epubPath = epubPath.substring(6, epubPath.length());
-//        System.out.println(epubPath);
-//        epubPath = epubPath.replace("/", "//");
-//        System.out.println(epubPath);
-
-//        String epubPath = Play.application().path() + "/public/uploads/test1_book8.epub";
-//        epubPath = epubPath.replace("/", "//");
-
-        String epubPath = url.replace("/", "//");
-        System.out.println("epubPath:" + epubPath);
+        filePath = filePath.replace("/", "//");
         // read epub file
         Book book = null;
         try {
-            InputStream inputStr = new FileInputStream(epubPath);
+            InputStream inputStr = new FileInputStream(filePath);
             book = epubReader.readEpub(inputStr);
         } catch (IOException e) {
             e.printStackTrace();

@@ -11,22 +11,21 @@ public class StringUtil {
      * @return true, if the provided value is null or the empty String, false otherwise
      */
     public static boolean isEmpty(String value) {
-
         return (value == null) || (value.length() == 0);
     }
 
     /**
      * extract file name form the given file path
      *
-     * @param filePath      path to the file, like 'c:/test.jpg', 'c:\\test.jpg'
+     * @param fileFullPath      path to the file, like 'c:/test.jpg', 'c:\\test.jpg'
      * @param withExtention indicate contain file.extention. true : contain | false : ignore
      * @return fileName file.name;
      */
-    public static String getFileName(String filePath, boolean withExtention) {
-        int sep = filePath.lastIndexOf("\\") == -1 ? filePath.lastIndexOf("/") : filePath.lastIndexOf("\\");
+    public static String getFileName(String fileFullPath, boolean withExtention) {
+        int sep = fileFullPath.lastIndexOf("\\") == -1 ? fileFullPath.lastIndexOf("/") : fileFullPath.lastIndexOf("\\");
         if (withExtention)
-            return filePath.substring(sep + 1);
-        return filePath.substring(sep + 1, filePath.lastIndexOf("."));
+            return fileFullPath.substring(sep + 1);
+        return fileFullPath.substring(sep + 1, fileFullPath.lastIndexOf("."));
     }
 
     /**

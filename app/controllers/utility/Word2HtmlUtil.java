@@ -16,35 +16,37 @@ import java.io.*;
  * Created by alex on 11/17/2015
  */
 public class Word2HtmlUtil {
-    private final static String tempPath = "D://eee//folder//";
+    private final static String midFolder = "folder";
 
     /**
      * docx格式word转换为html
      *
-     * @param fileName   docx文件路径
-     * @param outPutFile html输出文件路径
-     * @throws javax.xml.transform.TransformerException
-     * @throws java.io.IOException
-     * @throws javax.xml.parsers.ParserConfigurationException
+     * @param filePath   docx file path
+     * @param outFilePath html file out path
      */
-    public static void docx2Html(String fileName, String outPutFile) throws TransformerException, IOException, ParserConfigurationException {
-        //html文件输出路径
-        String fileOutName = outPutFile;
+    public static void docx2Html(String filePath, String outFilePath) throws TransformerException, IOException, ParserConfigurationException {
+
         long startTime = System.currentTimeMillis();
-        //读取docx文件信息
-        XWPFDocument document = new XWPFDocument(new FileInputStream(fileName));
+
+        //read docx file info
+        XWPFDocument document = new XWPFDocument(new FileInputStream(filePath));
+
         XHTMLOptions options = XHTMLOptions.create().indent(4);
-        //提取docx文件中的图片
-        File imageFolder = new File(tempPath);
+        //extract pic from docx file and put it to image Folder e.g.:D://eee//folder//
+        String imageFolderPath = StringUtil.getFilePath(outFilePath) + midFolder + "//";
+        File imageFolder = new File(imageFolderPath);
         options.setExtractor(new FileImageExtractor(imageFolder));
         // URI resolver
         //options.URIResolver(new FileURIResolver(imageFolder));
-        options.URIResolver(new BasicURIResolver("folder"));
-        File outFile = new File(fileOutName);
+        options.URIResolver(new BasicURIResolver(midFolder));
+
+        File outFile = new File(outFilePath);
         outFile.getParentFile().mkdirs();
         OutputStream out = new FileOutputStream(outFile);
+
         XHTMLConverter.getInstance().convert(document, out, options);
-        System.out.println("Generate " + fileOutName + " with " + (System.currentTimeMillis() - startTime) + " ms.");
+
+        System.out.println("Generate " + outFilePath + " with " + (System.currentTimeMillis() - startTime) + " ms.");
 
     }
 }

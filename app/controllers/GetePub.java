@@ -22,18 +22,18 @@ import java.util.List;
 import java.util.Map;
 
 public class GetePub {
+    private static String filePath = Play.application().path() + "/public/uploads/test.epub";
 
     public static List<Map<String, Object>> getePub() {
         EpubReader epubReader = new EpubReader();
 
         // get IO flow path
-        String epubPath = Play.application().path() + "/public/uploads/test.epub";
-        epubPath = epubPath.replace("/", "//");
+        filePath = filePath.replace("/", "//");
 
         // read epub file
         Book book = null;
         try {
-            InputStream inputStr = new FileInputStream(epubPath);
+            InputStream inputStr = new FileInputStream(filePath);
             book = epubReader.readEpub(inputStr);
         } catch (IOException e) {
             e.printStackTrace();

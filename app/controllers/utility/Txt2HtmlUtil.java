@@ -9,12 +9,12 @@ import java.io.FileOutputStream;
  * Created by alex on 11/18/2015
  */
 public class Txt2HtmlUtil {
+    private final static String htmlTemplatePath = "D://leon.html";
+
     public static void txt2Html(String title, String content, String author) {
         try {
-            //模板路径
-            String filePath = "D://leon.html";
             String templateContent = "";
-            FileInputStream fileinputstream = new FileInputStream(filePath);// 读取模板文件
+            FileInputStream fileinputstream = new FileInputStream(htmlTemplatePath);// 读取模板文件
             int lenght = fileinputstream.available();
             byte bytes[] = new byte[lenght];
             fileinputstream.read(bytes);
@@ -31,7 +31,7 @@ public class Txt2HtmlUtil {
 //            Calendar calendar = Calendar.getInstance();
 //            String fileame = String.valueOf(calendar.getTimeInMillis()) + ".html";
 //            fileame = "/" + fileame;// 生成的html文件保存路径。
-            FileOutputStream fileoutputstream = new FileOutputStream("D://a.html");// 建立文件输出流
+            FileOutputStream fileoutputstream = new FileOutputStream("D://a1.html");// 建立文件输出流
             byte tag_bytes[] = templateContent.getBytes();
             fileoutputstream.write(tag_bytes);
             fileoutputstream.close();
