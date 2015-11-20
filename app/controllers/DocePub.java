@@ -29,7 +29,7 @@ public class DocePub {
     }
 
     /**
-     * convert docx file to html file
+     * convert docx file to ePub file
      *
      * @param filePath   docx file path e.g.:D://eee.docx
      * @param outFilePath html out path e.g.:D://

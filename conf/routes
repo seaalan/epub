@@ -60,9 +60,10 @@ GET     /docePub                    controllers.Application.docePub()
 GET     /txtePub                    controllers.Application.txtePub()
 # create ePub From docx(through folder)
 GET     /docx2ePub                  controllers.Application.docx2ePub()
-# create ePub From email
+# create ePub From email(through folder)
 GET     /email2ePub                 controllers.Application.email2ePub()
-
+# create ePub From txt(through folder)
+GET     /txt2ePub                   controllers.Application.txt2ePub()
 
 
 

@@ -1,7 +1,6 @@
 package controllers;
 
 import controllers.rssToePub.RssToEpub;
-import controllers.utility.Email2HtmlUtil;
 import models.Epub;
 import models.Person;
 import models.User;
@@ -313,8 +312,7 @@ public class Application extends Controller {
     public static Result txtePub() {
         File file = new File("D:\\play\\epub\\e.txt");
         try {
-//            TxtePub.txtePub(file);
-            TxtePub.txt2ePub("D:\\play\\epub\\e.txt","");
+            TxtePub.txtePub(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -334,11 +332,23 @@ public class Application extends Controller {
     }
 
     /**
-     * create ePub file from docx file.
+     * create ePub file from txt file.
+     */
+    public static Result txt2ePub() {
+        try {
+            TxtePub.txt2ePub("D://xxx.txt", "D://");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ok("ok");
+    }
+
+    /**
+     * create ePub file from email file.
      */
     public static Result email2ePub() {
         try {
-            Email2HtmlUtil.receive();
+            EmailePub.email2ePub("sea", "D://");
         } catch (Exception e) {
             e.printStackTrace();
         }

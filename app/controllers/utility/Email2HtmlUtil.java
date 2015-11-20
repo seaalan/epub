@@ -6,6 +6,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 import java.io.*;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -17,11 +18,13 @@ import java.util.Properties;
  * Created by alex on 11/18/2015
  */
 public class Email2HtmlUtil {
+    private final static String emailName = "seaalan@163.com";
+    private final static String emailPassword = "fan7442007fan";
 
     /**
      * receive email
      */
-    public static void receive() throws Exception {
+    public static String receive(String emailSubject) throws Exception {
         // 准备连接服务器的会话信息
         Properties props = new Properties();
         props.setProperty("mail.store.protocol", "pop3");       // 协议
@@ -31,7 +34,7 @@ public class Email2HtmlUtil {
         // 创建Session实例对象
         Session session = Session.getInstance(props);
         Store store = session.getStore("pop3");
-        store.connect("123@163.com", "123");
+        store.connect(emailName, emailPassword);
 
         // 获得收件箱
         Folder folder = store.getFolder("INBOX");
@@ -52,11 +55,12 @@ public class Email2HtmlUtil {
 
         // 得到收件箱中的所有邮件,并解析
         Message[] messages = folder.getMessages();
-        parseMessage(messages);
+        String emailContent = parseMessage(messages, emailSubject);
 
         //释放资源
         folder.close(true);
         store.close();
+        return emailContent;
     }
 
     /**
@@ -64,15 +68,17 @@ public class Email2HtmlUtil {
      *
      * @param messages 要解析的邮件列表
      */
-    public static void parseMessage(Message... messages) throws MessagingException, IOException {
+    public static String parseMessage(Message[] messages, String emailSubject) throws MessagingException, IOException {
         if (messages == null || messages.length < 1)
             throw new MessagingException("未找到要解析的邮件!");
 
+        String emailContent = "";
         // 解析所有邮件
-        //for (int i = 0, count = messages.length; i < count; i++) {
-        for (int i = 0, count = 1; i < count; i++) {
-            MimeMessage msg = (MimeMessage) messages[i];
-//            MimeMessage msg = (MimeMessage) messages[messages.length-1];
+        for (int i = 0; i < 1; i++) {
+//        for (int i = 0, count = 1; i < count; i++) {
+//            MimeMessage msg = (MimeMessage) messages[i];
+            MimeMessage msg = (MimeMessage) messages[messages.length-1];
+            if (!getSubject(msg).equals(emailSubject)) continue;//find the same subject email
             System.out.println("------------------解析第" + msg.getMessageNumber() + "封邮件-------------------- ");
             System.out.println("主题: " + getSubject(msg));
             System.out.println("发件人: " + getFrom(msg));
@@ -90,48 +96,12 @@ public class Email2HtmlUtil {
             StringBuffer content = new StringBuffer(30);
             getMailTextContent(msg, content);
             System.out.println("邮件正文：" + (content));
-
-
-//            saveFile(new ByteArrayInputStream(content.toString().getBytes("UTF-8")),
-//                    "D://email", getSubject(msg)+".html");
-
-//            String outContent = content.toString().replace("&", "&amp;");
-            writeFile(new String(content.toString().getBytes(), "GBK"));
-            Txt2HtmlUtil.txt2Html("Make Html", content.toString(), "秋水");
-
-
+            emailContent = content.toString();
             //System.out.println("邮件正文：" + (content.length() > 100 ? content.substring(0,100) + "..." : content));
             System.out.println("------------------第" + msg.getMessageNumber() + "封邮件解析结束-------------------- ");
             System.out.println();
         }
-    }
-
-    /**
-     * write file
-     *
-     * @param s
-     */
-    private static void writeFile(String s) {
-        FileOutputStream fos = null;
-        BufferedWriter bw = null;
-        try {
-            File file = new File("d:\\abcd6.html");
-            fos = new FileOutputStream(file);
-            bw = new BufferedWriter(new OutputStreamWriter(fos));
-            bw.write(s);
-        } catch (FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } finally {
-            try {
-                if (bw != null)
-                    bw.close();
-                if (fos != null)
-                    fos.close();
-            } catch (IOException ie) {
-            }
-        }
+        return emailContent;
     }
 
     /**
@@ -387,6 +357,34 @@ public class Email2HtmlUtil {
             return "";
         } else {
             return MimeUtility.decodeText(encodeText);
+        }
+    }
+
+    /**
+     * write file
+     *
+     * @param s
+     */
+    private static void writeFile(String s) {
+        FileOutputStream fos = null;
+        BufferedWriter bw = null;
+        try {
+            File file = new File("d:\\abcd6.html");
+            fos = new FileOutputStream(file);
+            bw = new BufferedWriter(new OutputStreamWriter(fos));
+            bw.write(s);
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+            try {
+                if (bw != null)
+                    bw.close();
+                if (fos != null)
+                    fos.close();
+            } catch (IOException ie) {
+            }
         }
     }
 }
