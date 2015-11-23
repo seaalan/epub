@@ -1,12 +1,12 @@
 package controllers;
 
 import controllers.rssToePub.RssToEpub;
+import controllers.utility.Constant;
 import models.Epub;
 import models.Person;
 import models.User;
 import nl.siegmann.epublib.domain.Book;
 import org.mindrot.jbcrypt.BCrypt;
-import play.Play;
 import play.data.Form;
 import play.data.validation.Constraints.Email;
 import play.data.validation.Constraints.Required;
@@ -139,10 +139,8 @@ public class Application extends Controller {
             String fileName = picture.getFilename();
             String contentType = picture.getContentType();
             File file = picture.getFile();
-            // get the root path of the Play project
-            File root = Play.application().path();
             // save file to the disk
-            file.renameTo(new File(root, "/public/uploads/" + fileName));
+            file.renameTo(new File(Constant.ROOT_PATH, "/public/uploads/" + fileName));
             return true;
         } else {
             return false;
@@ -216,7 +214,7 @@ public class Application extends Controller {
         if (book != null) {
             Epub epub = new Epub();
             epub.title = title;
-            epub.url = Play.application().path() + "\\" + title + ".epub";
+            epub.url = Constant.ROOT_PATH + "\\" + title + ".epub";
             epub.save();
         }
         return ok("Saved");
@@ -297,7 +295,7 @@ public class Application extends Controller {
      * create ePub file from doc file.
      */
     public static Result docePub() {
-        File file = new File("D:\\play\\epub\\e.doc");
+        File file = new File(Constant.ROOT_PATH + "//e.epub");//"D:\\play\\epub\\e.doc"
         try {
             DocePub.docePub(file);
         } catch (IOException e) {
@@ -310,7 +308,7 @@ public class Application extends Controller {
      * create ePub file from txt file.
      */
     public static Result txtePub() {
-        File file = new File("D:\\play\\epub\\e.txt");
+        File file = new File(Constant.ROOT_PATH + "//e.epub");//"D:\\play\\epub\\e.txt"
         try {
             TxtePub.txtePub(file);
         } catch (IOException e) {
@@ -323,8 +321,10 @@ public class Application extends Controller {
      * create ePub file from doc file.
      */
     public static Result docx2ePub() {
+        String filePath = (Constant.ROOT_PATH + "//public//docx//eee.docx").replace("\\", "//");//D://eee.docx
+        String outFilePath = (Constant.ROOT_PATH + "//public//docx//out//").replace("\\", "//");//D://
         try {
-            DocePub.docx2ePub("D://eee.docx", "D://");
+            DocePub.docx2ePub(filePath, outFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -335,8 +335,10 @@ public class Application extends Controller {
      * create ePub file from txt file.
      */
     public static Result txt2ePub() {
+        String filePath = (Constant.ROOT_PATH + "//public//txt//xxx.txt").replace("\\", "//");//D://xxx.txt
+        String outFilePath = (Constant.ROOT_PATH + "//public//txt//out//").replace("\\", "//");//D://
         try {
-            TxtePub.txt2ePub("D://xxx.txt", "D://");
+            TxtePub.txt2ePub(filePath, outFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -347,8 +349,10 @@ public class Application extends Controller {
      * create ePub file from email file.
      */
     public static Result email2ePub() {
+        String emailSubject = "sea";//sea
+        String outFilePath = (Constant.ROOT_PATH + "//public//email//out//").replace("\\", "//");//D://
         try {
-            EmailePub.email2ePub("sea", "D://");
+            EmailePub.email2ePub(emailSubject, outFilePath);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,8 +1,5 @@
 package controllers.utility;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-
 /**
  * Copyright 2015 Erealm Info & Tech.
  * <p>
@@ -14,13 +11,8 @@ public class Txt2HtmlUtil {
     public static void txt2Html(String content, String outFilePath) {
         try {
             String templateContent = "";
-            FileInputStream fileinputstream = new FileInputStream(htmlTemplatePath);// 读取模板文件
-            int lenght = fileinputstream.available();
-            byte bytes[] = new byte[lenght];
-            fileinputstream.read(bytes);
-            fileinputstream.close();
+            templateContent = FileUtil.read(htmlTemplatePath, "UTF-8");
 
-            templateContent = new String(bytes);
             System.out.print(templateContent);
             // 替换掉模板中相应的地方
             templateContent = templateContent.replaceAll("###title###", StringUtil.getFileName(outFilePath, false));
@@ -33,10 +25,7 @@ public class Txt2HtmlUtil {
 //            Calendar calendar = Calendar.getInstance();
 //            String fileame = String.valueOf(calendar.getTimeInMillis()) + ".html";
 //            fileame = "/" + fileame;// 生成的html文件保存路径。
-            FileOutputStream fileoutputstream = new FileOutputStream(outFilePath);// 建立文件输出流
-            byte tag_bytes[] = templateContent.getBytes("GBK");//读取文件时指定字符编码
-            fileoutputstream.write(tag_bytes);
-            fileoutputstream.close();
+            FileUtil.write(templateContent, outFilePath, "GBK");
         } catch (Exception e) {
             System.out.print(e.toString());
         }

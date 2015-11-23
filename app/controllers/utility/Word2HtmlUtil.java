@@ -40,7 +40,7 @@ public class Word2HtmlUtil {
         //options.URIResolver(new FileURIResolver(imageFolder));
         options.URIResolver(new BasicURIResolver(midFolder));
 
-        CreateFolderUtil.createFolder(outFilePath);
+        CreateFolderUtil.createFolder(StringUtil.getFilePath(outFilePath));
         OutputStream out = new FileOutputStream(new File(outFilePath));
 
         XHTMLConverter.getInstance().convert(document, out, options);

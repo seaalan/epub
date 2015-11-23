@@ -7,22 +7,24 @@ package controllers;
  */
 
 import com.fasterxml.jackson.databind.JsonNode;
-import nl.siegmann.epublib.domain.Book;
-import nl.siegmann.epublib.epub.EpubReader;
-import play.Play;
+import controllers.utility.Constant;
 import nl.siegmann.epublib.domain.Author;
+import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Date;
 import nl.siegmann.epublib.domain.Identifier;
+import nl.siegmann.epublib.epub.EpubReader;
 import play.libs.Json;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class GetePub {
-    private static String filePath = Play.application().path() + "/public/uploads/test.epub";
+    private static String filePath = Constant.ROOT_PATH + "/public/uploads/test.epub";
 
     public static List<Map<String, Object>> getePub() {
         EpubReader epubReader = new EpubReader();

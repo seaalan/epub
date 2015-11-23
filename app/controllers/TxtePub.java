@@ -35,7 +35,7 @@ public class TxtePub {
         String lineTxt = null;
         while ((lineTxt = bufferedReader.readLine()) != null) {
             if (lineTxt.length() == 0) continue;//按txt中的每行来循环epub中的每章，txt中的空行忽略
-            txtContent = txtContent + lineTxt + "\n";
+            txtContent = txtContent + lineTxt + "<br/>";
         }
         //one: convert txt to html into a folder
         Txt2HtmlUtil.txt2Html(txtContent, pathWithoutSuffix + ".html");

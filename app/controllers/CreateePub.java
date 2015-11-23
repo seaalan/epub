@@ -51,7 +51,7 @@ public class CreateePub {
 
 //    public static void createePubFromCHM() {
 //        ChmParser chmParser = new ChmParser();
-//        String folderPath = Play.application().path() + "/htmlhelp.zip";
+//        String folderPath = Constant.ROOT_PATH + "/htmlhelp.zip";
 //        folderPath = folderPath.replace("\\", "/");
 //        folderPath = folderPath.replace("/", "/");
 //        File file = new File(folderPath);

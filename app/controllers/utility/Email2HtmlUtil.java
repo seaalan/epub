@@ -6,7 +6,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 import java.io.*;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -18,8 +17,6 @@ import java.util.Properties;
  * Created by alex on 11/18/2015
  */
 public class Email2HtmlUtil {
-    private final static String emailName = "seaalan@163.com";
-    private final static String emailPassword = "fan7442007fan";
 
     /**
      * receive email
@@ -34,7 +31,7 @@ public class Email2HtmlUtil {
         // 创建Session实例对象
         Session session = Session.getInstance(props);
         Store store = session.getStore("pop3");
-        store.connect(emailName, emailPassword);
+        store.connect(Constant.EMAIL_NAME, Constant.EMAIL_PASSWORD);
 
         // 获得收件箱
         Folder folder = store.getFolder("INBOX");

@@ -6,10 +6,10 @@ package controllers;
  * Created by alex on 11/6/2015
  */
 
+import controllers.utility.Constant;
 import nl.siegmann.epublib.domain.*;
 import nl.siegmann.epublib.epub.EpubWriter;
 import org.apache.poi.hpsf.SummaryInformation;
-import play.Play;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -212,7 +212,7 @@ public class AddePub {
     private static InputStream getResource(String resourcePath) {
         FileInputStream stream = null;
         try {
-            stream = new FileInputStream(new File(Play.application().path(), resourcePath));
+            stream = new FileInputStream(new File(Constant.ROOT_PATH, resourcePath));
         } catch (Exception e1) {
             e1.printStackTrace();
         }
