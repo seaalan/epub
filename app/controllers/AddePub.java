@@ -7,6 +7,7 @@ package controllers;
  */
 
 import controllers.utility.Constant;
+import controllers.utility.EPubReadWriteUtil;
 import nl.siegmann.epublib.domain.*;
 import nl.siegmann.epublib.epub.EpubWriter;
 import org.apache.poi.hpsf.SummaryInformation;
@@ -90,11 +91,8 @@ public class AddePub {
             // Set Spine
             book.setSpine(new Spine(tableOfContents));
 
-            // Create EpubWriter
-            EpubWriter epubWriter = new EpubWriter();
-
             // Write the Book as Epub
-            epubWriter.write(book, new FileOutputStream(title + ".epub"));
+            EPubReadWriteUtil.write(book, title + ".epub");
             return book;
         } catch (Exception e) {
             e.printStackTrace();

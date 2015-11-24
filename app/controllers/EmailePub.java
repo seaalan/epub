@@ -4,6 +4,8 @@ import controllers.utility.Email2HtmlUtil;
 import controllers.utility.Txt2HtmlUtil;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Copyright 2015 Erealm Info & Tech.
@@ -30,6 +32,9 @@ public class EmailePub {
             e.printStackTrace();
         }
         //two: create epub from html folder
-        CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub");
+        Map metadata = new HashMap<>();
+        metadata.put("author","");
+        metadata.put("publisher","");
+        CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub", metadata);
     }
 }

@@ -6,12 +6,11 @@ package controllers.utility;
  * Created by alex on 11/18/2015
  */
 public class Txt2HtmlUtil {
-    private final static String htmlTemplatePath = "D://leon.html";
 
     public static void txt2Html(String content, String outFilePath) {
         try {
             String templateContent = "";
-            templateContent = FileUtil.read(htmlTemplatePath, "UTF-8");
+            templateContent = FileUtil.read(Constant.HTML_TEMPLATE_PATH, "UTF-8");
 
             System.out.print(templateContent);
             // 替换掉模板中相应的地方

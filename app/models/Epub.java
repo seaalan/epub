@@ -1,7 +1,6 @@
 package models;
 
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,6 +12,8 @@ public class Epub extends Model {
     @Id
     public Integer id;
     public String title;
+    public String author;
+    public String publisher;
     public String url;
 
     // Query

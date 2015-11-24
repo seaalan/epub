@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.data.DataEntry;
 import controllers.rssToePub.RssToEpub;
 import controllers.utility.Constant;
 import models.Epub;
@@ -233,12 +234,9 @@ public class Application extends Controller {
      * edit one ePub file.
      */
     public static Result editePub() {
-        EditePub translator = new EditePub();
         Form<Epub> ePubForm = Form.form(Epub.class).bindFromRequest();
-        Epub epub = Epub.findById(ePubForm.get().id.toString());
-        translator.editePub(ePubForm.get().title, epub.url);
-        epub.title = ePubForm.get().title;
-        epub.update();
+        EditePub.editePub(ePubForm);
+        DataEntry.updateePub(ePubForm);
         return ok("edit success");
     }
 
@@ -321,7 +319,7 @@ public class Application extends Controller {
      * create ePub file from doc file.
      */
     public static Result docx2ePub() {
-        String filePath = (Constant.ROOT_PATH + "//public//docx//eee.docx").replace("\\", "//");//D://eee.docx
+        String filePath = (Constant.ROOT_PATH + "//public//docx//xxx.docx").replace("\\", "//");//D://eee.docx
         String outFilePath = (Constant.ROOT_PATH + "//public//docx//out//").replace("\\", "//");//D://
         try {
             DocePub.docx2ePub(filePath, outFilePath);

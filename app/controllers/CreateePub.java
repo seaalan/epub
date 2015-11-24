@@ -13,6 +13,7 @@ import nl.siegmann.epublib.fileset.FilesetBookCreator;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Map;
 
 public class CreateePub {
     private final static String createePubFolderPath = "D:\\caaa";
@@ -35,7 +36,7 @@ public class CreateePub {
         }
     }
 
-    public static void createePubFromFolder(String folderPath, String outFilePath) {
+    public static void createePubFromFolder(String folderPath, String outFilePath, Map metadata) {
         FilesetBookCreator filesetBookCreator = new FilesetBookCreator();
         File file = new File(folderPath);
         try {
@@ -44,7 +45,8 @@ public class CreateePub {
             //output the ePub
             EpubWriter epubWriter = new EpubWriter();
             epubWriter.write(book, new FileOutputStream(outFilePath));
-        } catch (IOException e) {
+            AddePubMetadata.addePubMetadata(outFilePath, metadata);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

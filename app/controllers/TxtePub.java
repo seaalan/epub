@@ -4,6 +4,8 @@ import controllers.utility.StringUtil;
 import controllers.utility.Txt2HtmlUtil;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Copyright 2015 Erealm Info & Tech.
@@ -40,6 +42,9 @@ public class TxtePub {
         //one: convert txt to html into a folder
         Txt2HtmlUtil.txt2Html(txtContent, pathWithoutSuffix + ".html");
         //two: create epub from html folder
-        CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub");
+        Map metadata = new HashMap<>();
+        metadata.put("author","");
+        metadata.put("publisher","");
+        CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub", metadata);
     }
 }

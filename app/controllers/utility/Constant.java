@@ -15,4 +15,8 @@ public final class Constant {
 
     public static String EMAIL_NAME = "123@163.com";
     public static String EMAIL_PASSWORD = "123";
+
+    public static String HTML_TEMPLATE_PATH = "D://leon.html";
+
+    public static String OUT_EPUB_FILE_PATH = (ROOT_PATH + "//public//epub//out//").replace("\\", "//");
 }

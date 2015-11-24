@@ -11,6 +11,7 @@ import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Copyright 2015 Erealm Info & Tech.
@@ -40,9 +41,9 @@ public class DocePub {
         String pathWithoutSuffix = outFilePath + nameWithoutSuffix + "//" + nameWithoutSuffix;//e.g.:D://eee//eee
         try {
             //one: convert docx to html into a folder
-            Word2HtmlUtil.docx2Html(filePath, pathWithoutSuffix + ".html");
+            Map metadata = Word2HtmlUtil.docx2Html(filePath, pathWithoutSuffix + ".html");
             //two: create epub from html folder
-            CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub");
+            CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub", metadata);
         } catch (TransformerException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
