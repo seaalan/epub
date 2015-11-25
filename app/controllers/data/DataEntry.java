@@ -49,14 +49,24 @@ public class DataEntry extends Controller{
                         .setMaxRows(10)
                         .findList();
         //Example: The same query using the query language
-        String oql =
-                " find epub "
+        String oql =    " find epub "
                         //+" fetch title "
-                        +" where title like :title "
-                        +" order by id desc "
-                        +" limit 10 ";
+                        +" where title like :title ";
+        if(ePubForm.get().author != null && ePubForm.get().author != ""){
+            oql = oql + " and author = :author ";
+        }
+        if(ePubForm.get().publisher != null && ePubForm.get().publisher != ""){
+            oql = oql + " and publisher = :publisher ";
+        }
+        oql = oql + " limit 10 ";
         Query<Epub> query = Ebean.createQuery(Epub.class, oql);
         query.setParameter("title", ePubForm.get().title+"%");
+        if(ePubForm.get().author != null && ePubForm.get().author != ""){
+            query.setParameter("author", ePubForm.get().author);
+        }
+        if(ePubForm.get().publisher != null && ePubForm.get().publisher != ""){
+            query.setParameter("publisher", ePubForm.get().publisher);
+        }
         List<Epub> epubList2 = query.findList();
         //Example: Using a named query called "with.cust.and.details"
 //        Query<Epub> query = Ebean.createNamedQuery(Epub.class,"with.cust.and.details");
