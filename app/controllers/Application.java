@@ -258,11 +258,19 @@ public class Application extends Controller {
     }
 
     /**
+     * jump to search ePub page.
+     */
+    public static Result searchePubPage() {
+        return ok(views.html.searchepub.render());
+    }
+
+    /**
      * search ePub file.
      */
     public static Result searchePub() {
-        SearchePub.testePub();
-        return ok("");
+        Form<Epub> ePubForm = Form.form(Epub.class).bindFromRequest();
+        List<Epub> epubList = SearchePub.searchePub(ePubForm);
+        return ok(views.html.epubList.render(epubList));
     }
 
     /**
@@ -347,10 +355,27 @@ public class Application extends Controller {
      * create ePub file from email file.
      */
     public static Result email2ePub() {
-        String emailSubject = "sea";//sea
+        String emailSubject = "me";//sea
         String outFilePath = (Constant.ROOT_PATH + "//public//email//out//").replace("\\", "//");//D://
         try {
             EmailePub.email2ePub(emailSubject, outFilePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ok("ok");
+    }
+
+    /**
+     * create ePub file from email Attachment file.
+     */
+    public static Result emailAttachment2ePub() {
+        String emailSubject = "me";//sea
+        String attachmentOutFilePath = (Constant.ROOT_PATH + "//public//docx//").replace("\\", "//");//D://
+        String filePath = "";
+        String ePubOutFilePath = (Constant.ROOT_PATH + "//public//docx//out//").replace("\\", "//");//D://
+        try {
+            filePath = EmailePub.emailAttachment2ePub(emailSubject, attachmentOutFilePath);
+            DocePub.docx2ePub(filePath, ePubOutFilePath);
         } catch (Exception e) {
             e.printStackTrace();
         }

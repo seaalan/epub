@@ -1,9 +1,8 @@
 package controllers;
 
-import controllers.utility.Email2HtmlUtil;
+import controllers.utility.EmailUtil;
 import controllers.utility.Txt2HtmlUtil;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,22 +18,31 @@ public class EmailePub {
      * @param emailSubject   docx file path e.g.:D://eee
      * @param outFilePath html out path e.g.:D://
      */
-    public static void email2ePub(String emailSubject, String outFilePath) throws IOException {
-
+    public static void email2ePub(String emailSubject, String outFilePath) throws Exception {
         String nameWithoutSuffix = emailSubject;//e.g.:sea
         String pathWithoutSuffix = outFilePath + nameWithoutSuffix + "//" + nameWithoutSuffix;//e.g.:D://sea//sea
 
         //one: convert email to html into a folder
-        try {
-            String emailContent = Email2HtmlUtil.receive(emailSubject);
-            Txt2HtmlUtil.txt2Html(emailContent, pathWithoutSuffix + ".html");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //String emailContent = Email2HtmlUtil.receive(emailSubject);
+        String emailContent = EmailUtil.receiveEmails(emailSubject, "");
+        Txt2HtmlUtil.txt2Html(emailContent, pathWithoutSuffix + ".html");
+
         //two: create epub from html folder
         Map metadata = new HashMap<>();
         metadata.put("author","");
         metadata.put("publisher","");
         CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub", metadata);
+    }
+
+    /**
+     * convert email file to ePub file
+     *
+     * @param emailSubject   docx file path e.g.:D://eee
+     * @param outFilePath html out path e.g.:D://
+     */
+    public static String emailAttachment2ePub(String emailSubject, String outFilePath) throws Exception {
+        //save email attachment into a folder
+        String filePath = EmailUtil.receiveEmails(emailSubject, outFilePath);
+        return filePath;
     }
 }

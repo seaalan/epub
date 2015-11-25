@@ -6,35 +6,17 @@ package controllers;
  * Created by alex on 11/6/2015
  */
 
-import nl.siegmann.epublib.domain.Book;
-import nl.siegmann.epublib.epub.EpubReader;
-import nl.siegmann.epublib.search.SearchIndex;
+import controllers.data.DataEntry;
+import models.Epub;
 import nl.siegmann.epublib.domain.Author;
+import play.data.Form;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 
 public class SearchePub {
 
-    public static void searchePub() {
-        EpubReader epubReader = new EpubReader();
-        String url = "D:\\play\\epub\\1.epub";
-        String epubPath = url.replace("/", "//");
-        System.out.println("epubPath:" + epubPath);
-        // read epub file
-        Book book = null;
-        try {
-            InputStream inputStr = new FileInputStream(epubPath);
-            book = epubReader.readEpub(inputStr);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        SearchIndex searchIndex = new SearchIndex(book);
-        Book book1 = searchIndex.getBook();
-        book.getTitle();
-        System.out.print(book.getTitle());
+    public static List<Epub> searchePub(Form<Epub> ePubForm) {
+        return DataEntry.searchePub(ePubForm);
     }
 
     public static void testePub() {

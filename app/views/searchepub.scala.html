@@ -1,0 +1,26 @@
+
+
+@main("Welcome to Play Framework") {
+
+    <div class="well">
+        <h1> Search ePub </h1>
+            @helper.form(action = routes.Application.searchePub()) {
+                <dl class=" " id="title_field">
+                    <dt><label for="title">title</label></dt>
+                    <dd>
+                        <input type="text" id="title" name="title">
+                    </dd>
+                    <dt><label for="title">author</label></dt>
+                    <dd>
+                        <input type="text" id="title" name="author">
+                    </dd>
+                    <dt><label for="title">publisher</label></dt>
+                    <dd>
+                        <input type="text" id="title" name="publisher">
+                    </dd>
+                </dl>
+                <input type="submit">
+            }
+    </div>
+
+}

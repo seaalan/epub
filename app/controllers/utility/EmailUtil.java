@@ -16,12 +16,12 @@ import java.util.Properties;
  * Use POP3 protocol to receive email
  * Created by alex on 11/18/2015
  */
-public class Email2HtmlUtil {
+public class EmailUtil {
 
     /**
      * receive email
      */
-    public static String receive(String emailSubject) throws Exception {
+    public static String receiveEmails(String emailSubject, String outFilePath) throws Exception {
         // 准备连接服务器的会话信息
         Properties props = new Properties();
         props.setProperty("mail.store.protocol", "pop3");       // 协议
@@ -52,20 +52,29 @@ public class Email2HtmlUtil {
 
         // 得到收件箱中的所有邮件,并解析
         Message[] messages = folder.getMessages();
-        String emailContent = parseMessage(messages, emailSubject);
+        String emailContent = "";
+        String filePath = "";
+        String returns = "";
+        if(outFilePath.equals("")){
+            emailContent = parseMessageContent(messages, emailSubject);
+            returns = emailContent;
+        }else{
+            filePath = parseMessageAttachment(messages, emailSubject, outFilePath);
+            returns = filePath;
+        }
 
         //释放资源
         folder.close(true);
         store.close();
-        return emailContent;
+        return returns;
     }
 
     /**
-     * 解析邮件
+     * 解析邮件内容
      *
      * @param messages 要解析的邮件列表
      */
-    public static String parseMessage(Message[] messages, String emailSubject) throws MessagingException, IOException {
+    public static String parseMessageContent(Message[] messages, String emailSubject) throws MessagingException, IOException {
         if (messages == null || messages.length < 1)
             throw new MessagingException("未找到要解析的邮件!");
 
@@ -85,12 +94,6 @@ public class Email2HtmlUtil {
             System.out.println("邮件优先级：" + getPriority(msg));
             System.out.println("是否需要回执：" + isReplySign(msg));
             System.out.println("邮件大小：" + msg.getSize() * 1024 + "kb");
-            boolean isContainerAttachment = isContainAttachment(msg);
-            System.out.println("是否包含附件：" + isContainerAttachment);
-            if (isContainerAttachment) {
-//                saveAttachment(msg, "c:\\mailtmp\\" + msg.getSubject() + "_"); //保存附件 me_xxx.docx
-                saveAttachment(msg, (Constant.ROOT_PATH + "//public//docx//"+ msg.getSubject() + "_").replace("\\", "//"));
-            }
             StringBuffer content = new StringBuffer(30);
             getMailTextContent(msg, content);
             System.out.println("邮件正文：" + (content));
@@ -100,6 +103,30 @@ public class Email2HtmlUtil {
             System.out.println();
         }
         return emailContent;
+    }
+
+    /**
+     * 解析邮件,下载附件
+     *
+     * @param messages 要解析的邮件列表
+     */
+    public static String parseMessageAttachment(Message[] messages, String emailSubject, String outFilePath) throws MessagingException, IOException {
+        if (messages == null || messages.length < 1)
+            throw new MessagingException("未找到要解析的邮件!");
+        String filePath = "";
+        // 解析所有邮件
+        for (int i = 0; i < 1; i++) {
+            MimeMessage msg = (MimeMessage) messages[messages.length-1];
+            System.out.println("主题: " + getSubject(msg));
+            if (!getSubject(msg).equals(emailSubject)) continue;//find the same subject email
+            boolean isContainerAttachment = isContainAttachment(msg);//是否包含附件
+            if (isContainerAttachment) {
+//                saveAttachment(msg, "c:\\mailtmp\\" + msg.getSubject() + "_"); //保存附件 me_xxx.docx
+                outFilePath = outFilePath + msg.getSubject() + "_";
+                filePath = saveAttachment(msg, outFilePath);
+            }
+        }
+        return filePath;
     }
 
     /**
@@ -295,8 +322,9 @@ public class Email2HtmlUtil {
      * @param part    邮件中多个组合体中的其中一个组合体
      * @param destDir 附件保存目录
      */
-    public static void saveAttachment(Part part, String destDir) throws UnsupportedEncodingException, MessagingException,
+    public static String saveAttachment(Part part, String destDir) throws UnsupportedEncodingException, MessagingException,
             FileNotFoundException, IOException {
+        String filePath = "";
         if (part.isMimeType("multipart/*")) {
             Multipart multipart = (Multipart) part.getContent();    //复杂体邮件
             //复杂体邮件包含多个邮件体
@@ -308,19 +336,20 @@ public class Email2HtmlUtil {
                 String disp = bodyPart.getDisposition();
                 if (disp != null && (disp.equalsIgnoreCase(Part.ATTACHMENT) || disp.equalsIgnoreCase(Part.INLINE))) {
                     InputStream is = bodyPart.getInputStream();
-                    saveFile(is, destDir, decodeText(bodyPart.getFileName()));
+                    filePath = saveFile(is, destDir, decodeText(bodyPart.getFileName()));
                 } else if (bodyPart.isMimeType("multipart/*")) {
                     saveAttachment(bodyPart, destDir);
                 } else {
                     String contentType = bodyPart.getContentType();
                     if (contentType.indexOf("name") != -1 || contentType.indexOf("application") != -1) {
-                        saveFile(bodyPart.getInputStream(), destDir, decodeText(bodyPart.getFileName()));
+                        filePath = saveFile(bodyPart.getInputStream(), destDir, decodeText(bodyPart.getFileName()));
                     }
                 }
             }
         } else if (part.isMimeType("message/rfc822")) {
             saveAttachment((Part) part.getContent(), destDir);
         }
+        return filePath;
     }
 
     /**
@@ -330,7 +359,7 @@ public class Email2HtmlUtil {
      * @param fileName 文件名
      * @param destDir  文件存储目录
      */
-    private static void saveFile(InputStream is, String destDir, String fileName)
+    private static String saveFile(InputStream is, String destDir, String fileName)
             throws FileNotFoundException, IOException {
         BufferedInputStream bis = new BufferedInputStream(is);
         BufferedOutputStream bos = new BufferedOutputStream(
@@ -342,6 +371,8 @@ public class Email2HtmlUtil {
         }
         bos.close();
         bis.close();
+        String filePath = destDir + fileName;
+        return filePath;
     }
 
     /**

@@ -44,8 +44,10 @@ POST     /editePub                  controllers.Application.editePub()
 # get a ePub file（not complete）
 GET     /getePub                    controllers.Application.getePub()
 
+# go to search ePub page
+GET     /searchePubPage             controllers.Application.searchePubPage()
 # search a ePub file
-GET     /searchePub                 controllers.Application.searchePub()
+POST    /searchePub                 controllers.Application.searchePub()
 
 # create ePub From Rss（need to do）
 GET     /createePubFromRss          controllers.Application.createePubFromRss()
@@ -64,7 +66,8 @@ GET     /docx2ePub                  controllers.Application.docx2ePub()
 GET     /email2ePub                 controllers.Application.email2ePub()
 # create ePub From txt(through folder)
 GET     /txt2ePub                   controllers.Application.txt2ePub()
-
+# create ePub From email attachment(through folder)
+GET     /emailAttachment2ePub       controllers.Application.emailAttachment2ePub()
 
 
 
