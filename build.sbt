@@ -26,7 +26,9 @@ libraryDependencies ++= Seq(
   "log4j" % "log4j" % "1.2.15",
   "org.apache.xmlbeans" % "xmlbeans" % "2.6.0",
   "xmlpull" % "xmlpull" % "1.1.3.4d_b4_min",
-  "org.yaml" % "snakeyaml" % "1.12"
+  "org.yaml" % "snakeyaml" % "1.12",
+  "org.htmlparser" % "htmlparser" % "2.1",
+  "org.jsoup" % "jsoup" % "1.8.3"
 )
 
 play.Project.playJavaSettings

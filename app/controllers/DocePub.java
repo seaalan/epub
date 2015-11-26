@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.utility.HtmlUtil;
 import controllers.utility.StringUtil;
 import controllers.utility.Word2HtmlUtil;
 import org.apache.poi.hpsf.SummaryInformation;
@@ -41,7 +42,7 @@ public class DocePub {
         String pathWithoutSuffix = outFilePath + nameWithoutSuffix + "//" + nameWithoutSuffix;//e.g.:D://eee//eee
         try {
             //one: convert docx to html into a folder
-            Map metadata = Word2HtmlUtil.docx2Html(filePath, pathWithoutSuffix + ".html");
+            Map metadata = Word2HtmlUtil.docx2Html(filePath, pathWithoutSuffix);
             //two: create epub from html folder
             CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub", metadata);
         } catch (TransformerException e) {
@@ -49,5 +50,19 @@ public class DocePub {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
+    }
+    /**
+     * convert docx file to ePub file
+     *
+     * @param filePath   docx file path e.g.:D://eee.docx
+     */
+    public static void docx2ePubWithManyChapter(String filePath, String outFilePath) throws Exception {
+        String nameWithoutSuffix = StringUtil.getFileName(filePath, false);
+        String pathWithoutSuffix = outFilePath + nameWithoutSuffix + "//" + nameWithoutSuffix;
+        //one: convert docx to html into a folder
+        Map metadata = Word2HtmlUtil.docx2Html(filePath, pathWithoutSuffix);
+        HtmlUtil.html2ParagraphHtml(pathWithoutSuffix.replace("//", "\\"));
+        //two: create epub from html folder
+        CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub", metadata);
     }
 }

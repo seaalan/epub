@@ -383,6 +383,21 @@ public class Application extends Controller {
     }
 
     /**
+     * create ePub file with many area from doc file.
+     */
+    public static Result docx2ePubWithManyChapter() {
+        //String filePath = "D:\\play\\epub\\public\\docx\\out\\xxx\\xxx1.html";//D://eee.docx
+        String filePath = (Constant.ROOT_PATH + "//public//docx//xxx.docx").replace("\\", "//");//D://eee.docx
+        String outFilePath = (Constant.ROOT_PATH + "//public//docx//out//").replace("\\", "//");//D://
+        try {
+            DocePub.docx2ePubWithManyChapter(filePath, outFilePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ok("ok");
+    }
+
+    /**
      * Password encryption test.
      */
     public static Result bcrypt() {

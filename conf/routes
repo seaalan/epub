@@ -68,7 +68,8 @@ GET     /email2ePub                 controllers.Application.email2ePub()
 GET     /txt2ePub                   controllers.Application.txt2ePub()
 # create ePub From email attachment(through folder)
 GET     /emailAttachment2ePub       controllers.Application.emailAttachment2ePub()
-
+# create ePub With Many Chapter From docx(through folder)
+GET     /docx2ePubWithManyChapter   controllers.Application.docx2ePubWithManyChapter()
 
 
 # Map static resources from the /public folder to the /assets URL path
