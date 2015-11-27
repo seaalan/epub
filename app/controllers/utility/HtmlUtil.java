@@ -42,7 +42,7 @@ public class HtmlUtil {
 
         //类选择器
         Elements elements = docx.select("p");
-        //
+        //去除p元素，添加"###content###"内容，之后用于替换每个paragraph
         docx.select("p").remove();
         docx.select("div").append("###content###");
         String docxTemp = docx.toString();

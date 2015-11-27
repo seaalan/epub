@@ -1,7 +1,9 @@
-package controllers;
+package controllers.convert;
 
+import controllers.AddePub;
+import controllers.CreateePub;
+import controllers.utility.FileUtil;
 import controllers.utility.HtmlUtil;
-import controllers.utility.StringUtil;
 import controllers.utility.Word2HtmlUtil;
 import org.apache.poi.hpsf.SummaryInformation;
 import org.apache.poi.hwpf.HWPFDocument;
@@ -38,7 +40,7 @@ public class DocePub {
      */
     public static void docx2ePub(String filePath, String outFilePath) throws IOException {
         //String nameWithSuffix = StringUtil.getFileName(fileName, true);//e.g.:eee.docx
-        String nameWithoutSuffix = StringUtil.getFileName(filePath, false);//e.g.:eee
+        String nameWithoutSuffix = FileUtil.getFileName(filePath, false);//e.g.:eee
         String pathWithoutSuffix = outFilePath + nameWithoutSuffix + "//" + nameWithoutSuffix;//e.g.:D://eee//eee
         try {
             //one: convert docx to html into a folder
@@ -57,7 +59,7 @@ public class DocePub {
      * @param filePath   docx file path e.g.:D://eee.docx
      */
     public static void docx2ePubWithManyChapter(String filePath, String outFilePath) throws Exception {
-        String nameWithoutSuffix = StringUtil.getFileName(filePath, false);
+        String nameWithoutSuffix = FileUtil.getFileName(filePath, false);
         String pathWithoutSuffix = outFilePath + nameWithoutSuffix + "//" + nameWithoutSuffix;
         //one: convert docx to html into a folder
         Map metadata = Word2HtmlUtil.docx2Html(filePath, pathWithoutSuffix);

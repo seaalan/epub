@@ -6,7 +6,7 @@ package controllers;
  * Created by alex on 11/6/2015
  */
 
-import controllers.utility.Constant;
+import controllers.constant.Constant;
 import controllers.utility.EPubReadWriteUtil;
 import nl.siegmann.epublib.domain.*;
 import nl.siegmann.epublib.epub.EpubWriter;

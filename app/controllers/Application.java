@@ -1,8 +1,11 @@
 package controllers;
 
+import controllers.convert.DocePub;
+import controllers.convert.EmailePub;
+import controllers.convert.TxtePub;
 import controllers.data.DataEntry;
 import controllers.rssToePub.RssToEpub;
-import controllers.utility.Constant;
+import controllers.constant.Constant;
 import models.Epub;
 import models.Person;
 import models.User;
@@ -392,6 +395,20 @@ public class Application extends Controller {
         try {
             DocePub.docx2ePubWithManyChapter(filePath, outFilePath);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ok("ok");
+    }
+
+    /**
+     * create ePub file With Many Chapter from txt file.
+     */
+    public static Result txt2ePubWithManyChapter() {
+        String filePath = (Constant.ROOT_PATH + "//public//txt//xxx.txt").replace("\\", "//");//D://xxx.txt
+        String outFilePath = (Constant.ROOT_PATH + "//public//txt//out//").replace("\\", "//");//D://
+        try {
+            TxtePub.txt2ePubWithManyChapter(filePath, outFilePath);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return ok("ok");

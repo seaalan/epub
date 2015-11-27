@@ -40,14 +40,14 @@ public class Word2HtmlUtil {
 
         XHTMLOptions options = XHTMLOptions.create().indent(4);
         //extract pic from docx file and put it to image Folder e.g.:D://eee//folder//
-        String imageFolderPath = StringUtil.getFilePath(outFilePath) + midFolder + "//";
+        String imageFolderPath = FileUtil.getFilePath(outFilePath) + midFolder + "//";
         File imageFolder = new File(imageFolderPath);
         options.setExtractor(new FileImageExtractor(imageFolder));
         // URI resolver
         //options.URIResolver(new FileURIResolver(imageFolder));
         options.URIResolver(new BasicURIResolver(midFolder));
 
-        CreateFolderUtil.createFolder(StringUtil.getFilePath(outFilePath));
+        FileUtil.createFolder(FileUtil.getFilePath(outFilePath));
         OutputStream out = new FileOutputStream(new File(outFilePath + ".html"));
 
         XHTMLConverter.getInstance().convert(document, out, options);

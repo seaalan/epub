@@ -8,7 +8,7 @@ package controllers;
 
 import controllers.data.DataEntry;
 import controllers.utility.EPubReadWriteUtil;
-import controllers.utility.StringUtil;
+import controllers.utility.FileUtil;
 import nl.siegmann.epublib.domain.Author;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Date;
@@ -31,7 +31,7 @@ public class AddePubMetadata {
         List<String> publishersList = new ArrayList<>();
         List<Date> datesList = new ArrayList<>();
 
-        titlesList.add(StringUtil.getFileName(filePath, false));
+        titlesList.add(FileUtil.getFileName(filePath, false));
         authorsList.add(new Author(metadata.get("author").toString()));
         publishersList.add(metadata.get("publisher").toString());
         datesList.add(new Date(new java.util.Date()));

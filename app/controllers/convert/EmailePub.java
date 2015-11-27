@@ -1,6 +1,7 @@
-package controllers;
+package controllers.convert;
 
-import controllers.utility.EmailUtil;
+import controllers.CreateePub;
+import controllers.utility.Email2HtmlUtil;
 import controllers.utility.Txt2HtmlUtil;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class EmailePub {
 
         //one: convert email to html into a folder
         //String emailContent = Email2HtmlUtil.receive(emailSubject);
-        String emailContent = EmailUtil.receiveEmails(emailSubject, "");
+        String emailContent = Email2HtmlUtil.receiveEmails(emailSubject, "");
         Txt2HtmlUtil.txt2Html(emailContent, pathWithoutSuffix + ".html");
 
         //two: create epub from html folder
@@ -42,7 +43,7 @@ public class EmailePub {
      */
     public static String emailAttachment2ePub(String emailSubject, String outFilePath) throws Exception {
         //save email attachment into a folder
-        String filePath = EmailUtil.receiveEmails(emailSubject, outFilePath);
+        String filePath = Email2HtmlUtil.receiveEmails(emailSubject, outFilePath);
         return filePath;
     }
 }

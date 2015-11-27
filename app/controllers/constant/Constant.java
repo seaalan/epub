@@ -1,4 +1,4 @@
-package controllers.utility;
+package controllers.constant;
 
 import play.Play;
 
