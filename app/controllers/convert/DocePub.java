@@ -1,7 +1,7 @@
 package controllers.convert;
 
-import controllers.AddePub;
-import controllers.CreateePub;
+import controllers.crud.AddePub;
+import controllers.crud.CreateePub;
 import controllers.utility.FileUtil;
 import controllers.utility.HtmlUtil;
 import controllers.utility.Word2HtmlUtil;

@@ -1,11 +1,13 @@
 package controllers;
 
+import controllers.constant.Constant;
 import controllers.convert.DocePub;
 import controllers.convert.EmailePub;
 import controllers.convert.TxtePub;
+import controllers.crud.*;
 import controllers.data.DataEntry;
 import controllers.rssToePub.RssToEpub;
-import controllers.constant.Constant;
+import controllers.utility.Html2Xhtml;
 import models.Epub;
 import models.Person;
 import models.User;
@@ -20,6 +22,7 @@ import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -330,7 +333,7 @@ public class Application extends Controller {
      * create ePub file from doc file.
      */
     public static Result docx2ePub() {
-        String filePath = (Constant.ROOT_PATH + "//public//docx//xxx.docx").replace("\\", "//");//D://eee.docx
+        String filePath = (Constant.ROOT_PATH + "//public//docx//eee.docx").replace("\\", "//");//D://eee.docx
         String outFilePath = (Constant.ROOT_PATH + "//public//docx//out//").replace("\\", "//");//D://
         try {
             DocePub.docx2ePub(filePath, outFilePath);
@@ -426,6 +429,20 @@ public class Application extends Controller {
         try {
             TxtePub.txt2ePubWithManyChapter(filePath, outFilePath);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ok("ok");
+    }
+
+    /**
+     * create xhtml From html
+     */
+    public static Result html2xhtml() {
+        String filePath = (Constant.ROOT_PATH + "\\public\\docx\\out\\eee\\qqq.html");//D://eee.docx
+        String outFilePath = (Constant.ROOT_PATH + "\\public\\docx\\out\\eee\\qqq.xhtml");//D://
+        try {
+            Html2Xhtml.html2Xhtml(filePath, outFilePath);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return ok("ok");

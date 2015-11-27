@@ -28,7 +28,8 @@ libraryDependencies ++= Seq(
   "xmlpull" % "xmlpull" % "1.1.3.4d_b4_min",
   "org.yaml" % "snakeyaml" % "1.12",
   "org.htmlparser" % "htmlparser" % "2.1",
-  "org.jsoup" % "jsoup" % "1.8.3"
+  "org.jsoup" % "jsoup" % "1.8.3",
+  "net.sf.jtidy" % "jtidy" % "r938"
 )
 
 play.Project.playJavaSettings

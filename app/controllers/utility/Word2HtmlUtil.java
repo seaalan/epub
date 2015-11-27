@@ -48,7 +48,7 @@ public class Word2HtmlUtil {
         options.URIResolver(new BasicURIResolver(midFolder));
 
         FileUtil.createFolder(FileUtil.getFilePath(outFilePath));
-        OutputStream out = new FileOutputStream(new File(outFilePath + ".html"));
+        OutputStream out = new FileOutputStream(new File(outFilePath + ".xhtml"));
 
         XHTMLConverter.getInstance().convert(document, out, options);
 

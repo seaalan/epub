@@ -1,6 +1,6 @@
 package controllers.convert;
 
-import controllers.CreateePub;
+import controllers.crud.CreateePub;
 import controllers.utility.Email2HtmlUtil;
 import controllers.utility.Txt2HtmlUtil;
 
