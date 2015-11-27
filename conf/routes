@@ -72,7 +72,8 @@ GET     /emailAttachment2ePub       controllers.Application.emailAttachment2ePub
 GET     /docx2ePubWithManyChapter   controllers.Application.docx2ePubWithManyChapter()
 # create ePub With Many Chapter From txt(through read)
 GET     /txt2ePubWithManyChapter    controllers.Application.txt2ePubWithManyChapter()
-
+# create ePub With Many Chapter From email attachment(through folder)
+GET     /emailAttachment2ePubWithManyChapter controllers.Application.emailAttachment2ePubWithManyChapter()
 
 
 # Map static resources from the /public folder to the /assets URL path

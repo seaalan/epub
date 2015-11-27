@@ -120,6 +120,9 @@ public class Email2HtmlUtil {
         for (int i = 0; i < 1; i++) {
             MimeMessage msg = (MimeMessage) messages[messages.length-1];
             System.out.println("主题: " + getSubject(msg));
+            System.out.println("发件人: " + getFrom(msg));
+            System.out.println("收件人：" + getReceiveAddress(msg, null));
+            System.out.println("发送时间：" + getSentDate(msg, null));
             if (!getSubject(msg).equals(emailSubject)) continue;//find the same subject email
             boolean isContainerAttachment = isContainAttachment(msg);//是否包含附件
             if (isContainerAttachment) {

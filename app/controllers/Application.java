@@ -386,6 +386,23 @@ public class Application extends Controller {
     }
 
     /**
+     * create ePub file With Many Chapter from email Attachment file.
+     */
+    public static Result emailAttachment2ePubWithManyChapter() {
+        String emailSubject = "me";//sea
+        String attachmentOutFilePath = (Constant.ROOT_PATH + "//public//docx//").replace("\\", "//");//D://
+        String filePath = "";
+        String ePubOutFilePath = (Constant.ROOT_PATH + "//public//docx//out//").replace("\\", "//");//D://
+        try {
+            filePath = EmailePub.emailAttachment2ePub(emailSubject, attachmentOutFilePath);
+            DocePub.docx2ePubWithManyChapter(filePath, ePubOutFilePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ok("ok");
+    }
+
+    /**
      * create ePub file with many area from doc file.
      */
     public static Result docx2ePubWithManyChapter() {
