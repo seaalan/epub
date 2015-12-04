@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.util.Map;
 
 public class CreateePub {
-    private final static String createePubFolderPath = "D:\\caaa";
-    private final static String ePubOutPath = "xxx.epub";
+    private final static String createePubFolderPath = "D:\\play\\epub\\public\\12";
+    private final static String ePubOutPath = "12.epub";
 
     public static void createePubFromFolder() {
         FilesetBookCreator filesetBookCreator = new FilesetBookCreator();

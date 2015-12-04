@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no' ?>
+<opf:package version="2.0" unique-identifier="BookId" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <opf:metadata>
+    <dc:identifier id="BookId" opf:scheme="UUID">f640f297-dc97-4580-ba86-e0ee8c3c8b1e</dc:identifier>
+    <dc:title>eee</dc:title>
+    <dc:publisher>a publisher</dc:publisher>
+    <dc:creator opf:role="aut" opf:file-as="alex, "> alex</dc:creator>
+    <dc:date>2015-12-03</dc:date>
+    <dc:language>en</dc:language>
+    <opf:meta name="cover" content="image_1" />
+    <opf:meta name="generator" content="EPUBLib version 3.0" />
+  </opf:metadata>
+  <opf:manifest>
+    <opf:item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <opf:item id="image_1" href="folder/word/media/image1.jpg" media-type="image/jpeg" />
+    <opf:item id="item_2" href="eee.xhtml" media-type="application/xhtml+xml" />
+  </opf:manifest>
+  <opf:spine toc="ncx">
+    <opf:itemref idref="item_2" />
+  </opf:spine>
+  <opf:guide>
+    <opf:reference type="cover" href="eee.xhtml" title="cover" />
+  </opf:guide>
+</opf:package>

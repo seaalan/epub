@@ -29,7 +29,8 @@ libraryDependencies ++= Seq(
   "org.yaml" % "snakeyaml" % "1.12",
   "org.htmlparser" % "htmlparser" % "2.1",
   "org.jsoup" % "jsoup" % "1.8.3",
-  "net.sf.jtidy" % "jtidy" % "r938"
+  "net.sf.jtidy" % "jtidy" % "r938",
+  "org.idpf" % "epubcheck" % "4.0.1"
 )
 
 play.Project.playJavaSettings

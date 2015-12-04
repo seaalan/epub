@@ -1,5 +1,7 @@
 package controllers;
 
+import controllers.EPUBCheck.Check;
+import controllers.EPUBGen.HelloEPUB3;
 import controllers.constant.Constant;
 import controllers.convert.DocePub;
 import controllers.convert.EmailePub;
@@ -8,6 +10,7 @@ import controllers.crud.*;
 import controllers.data.DataEntry;
 import controllers.rssToePub.RssToEpub;
 import controllers.utility.Html2Xhtml;
+import controllers.zip.Zip;
 import models.Epub;
 import models.Person;
 import models.User;
@@ -446,6 +449,36 @@ public class Application extends Controller {
             e.printStackTrace();
         }
         return ok("ok");
+    }
+
+    /**
+     * epub check
+     */
+    public static Result epubcheck() {
+        boolean result = Check.check();
+        String isRight="";
+        if(result){
+            isRight = "right";
+        }else{
+            isRight = "wrong";
+        }
+        return ok(isRight);
+    }
+
+    /**
+     * epub gen
+     */
+    public static Result epubgen() {
+        HelloEPUB3.helloEPUB3();
+        return ok();
+    }
+
+    /**
+     * epub zip
+     */
+    public static Result zip() {
+        Zip.zip("D:\\11.epub", "D:\\14");
+        return ok();
     }
 
     /**

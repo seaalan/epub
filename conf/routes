@@ -76,6 +76,13 @@ GET     /txt2ePubWithManyChapter    controllers.Application.txt2ePubWithManyChap
 GET     /emailAttachment2ePubWithManyChapter controllers.Application.emailAttachment2ePubWithManyChapter()
 # create xhtml From html
 GET     /html2xhtml                 controllers.Application.html2xhtml()
+# epub check
+GET     /epubcheck                  controllers.Application.epubcheck()
+# epub gen
+GET     /epubgen                    controllers.Application.epubgen()
+# epub zip
+GET     /zip                        controllers.Application.zip()
+
 
 
 # Map static resources from the /public folder to the /assets URL path
