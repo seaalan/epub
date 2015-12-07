@@ -84,7 +84,8 @@ GET     /epubgen                    controllers.Application.epubgen()
 GET     /zip                        controllers.Application.zip()
 # epub unzip
 GET     /unzip                      controllers.Application.unzip()
-
+# epub2 To Epub3
+GET     /epub2ToEpub3               controllers.Application.epub2ToEpub3()
 
 
 # Map static resources from the /public folder to the /assets URL path

@@ -5,6 +5,7 @@ import controllers.EPUBGen.HelloEPUB3;
 import controllers.constant.Constant;
 import controllers.convert.DocePub;
 import controllers.convert.EmailePub;
+import controllers.convert.Epub2ToEpub3;
 import controllers.convert.TxtePub;
 import controllers.crud.*;
 import controllers.data.DataEntry;
@@ -497,6 +498,18 @@ public class Application extends Controller {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+        return ok();
+    }
+
+    /**
+     * Epub2 To Epub3
+     */
+    public static Result epub2ToEpub3() {
+        try {
+            Epub2ToEpub3.epub2ToEpub3("D:\\eee1.epub", "D:\\eee1C1\\");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return ok();
     }
 
