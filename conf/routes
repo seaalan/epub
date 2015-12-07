@@ -82,6 +82,8 @@ GET     /epubcheck                  controllers.Application.epubcheck()
 GET     /epubgen                    controllers.Application.epubgen()
 # epub zip
 GET     /zip                        controllers.Application.zip()
+# epub unzip
+GET     /unzip                      controllers.Application.unzip()
 
 
 

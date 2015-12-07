@@ -11,6 +11,7 @@ import controllers.data.DataEntry;
 import controllers.rssToePub.RssToEpub;
 import controllers.utility.Html2Xhtml;
 import controllers.zip.Zip;
+import controllers.zip.ZipTools;
 import models.Epub;
 import models.Person;
 import models.User;
@@ -477,7 +478,25 @@ public class Application extends Controller {
      * epub zip
      */
     public static Result zip() {
-        Zip.zip("D:\\11.epub", "D:\\14");
+        //Zip.zip("D:\\eee1.epub", "D:\\play\\epub\\public\\epub\\demo epub3.0\\eee - Copy");
+        try {
+            ZipTools.zipFile("D:\\play\\epub\\public\\epub\\demo epub3.0\\eee - Copy","D:\\eee1.epub");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ok();
+    }
+
+    /**
+     * epub upzip
+     */
+    public static Result unzip() {
+        Zip.unzip("D:\\eee1.epub", "D:\\eee1C1\\");
+//        try {
+//            ZipTools.unZipFile("D:\\eee1 - Copy.zip", "D:\\eee1C\\");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return ok();
     }
 

@@ -10,7 +10,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Copyright 2015 Erealm Info & Tech.
@@ -93,11 +95,11 @@ public class Zip {
                 out.closeArchiveEntry();
             }
 
-//            ZipArchiveEntry zipArchiveEntry = new ZipArchiveEntry(mimetypeFile,
-//                    mimetypeFile.getPath().replace(zipDir.replace("/", "\\"), ""));
-//            out.putArchiveEntry(zipArchiveEntry);
-//            IOUtils.copy(new FileInputStream(mimetypeFile), out);
-//            out.closeArchiveEntry();
+            ZipArchiveEntry zipArchiveEntry = new ZipArchiveEntry(mimetypeFile,
+                    mimetypeFile.getPath().replace(zipDir.replace("/", "\\"), ""));
+            out.putArchiveEntry(zipArchiveEntry);
+            IOUtils.copy(new FileInputStream(mimetypeFile), out);
+            out.closeArchiveEntry();
 
             out.finish();
             out.close();
@@ -106,5 +108,17 @@ public class Zip {
         } catch (ArchiveException e) {
             System.err.println("不支持的压缩格式");
         }
+    }
+
+    private static List getSubFiles(File baseDir){
+        List ret=new ArrayList();
+        File[] tmp=baseDir.listFiles();
+        for (int i = 0; i <tmp.length; i++) {
+            if(tmp[i].isFile())
+                ret.add(tmp[i]);
+            if(tmp[i].isDirectory())
+                ret.addAll(getSubFiles(tmp[i]));
+        }
+        return ret;
     }
 }
