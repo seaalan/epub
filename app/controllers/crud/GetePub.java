@@ -35,10 +35,10 @@ public class GetePub {
         if (book != null) {
             List<Author> authors = book.getMetadata().getAuthors();
             String authorsString = "";
-            for(Author author : authors){
+            for (Author author : authors) {
                 authorsString = authorsString + author.getFirstname() + " " + author.getLastname() + " & ";
             }
-            authorsString = authorsString.substring(0,authorsString.length()-2);
+            authorsString = authorsString.substring(0, authorsString.length() - 2);
 
             map.put("Titles", book.getMetadata().getTitles());
             map.put("Authors", authorsString);

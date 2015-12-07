@@ -76,7 +76,7 @@ public class Email2HtmlUtilBack {
         for (int i = 0; i < 1; i++) {
 //        for (int i = 0, count = 1; i < count; i++) {
 //            MimeMessage msg = (MimeMessage) messages[i];
-            MimeMessage msg = (MimeMessage) messages[messages.length-1];
+            MimeMessage msg = (MimeMessage) messages[messages.length - 1];
             if (!getSubject(msg).equals(emailSubject)) continue;//find the same subject email
             System.out.println("------------------解析第" + msg.getMessageNumber() + "封邮件-------------------- ");
             System.out.println("主题: " + getSubject(msg));
@@ -91,7 +91,7 @@ public class Email2HtmlUtilBack {
             System.out.println("是否包含附件：" + isContainerAttachment);
             if (isContainerAttachment) {
 //                saveAttachment(msg, "c:\\mailtmp\\" + msg.getSubject() + "_"); //保存附件 me_xxx.docx
-                saveAttachment(msg, (Constant.ROOT_PATH + "//public//docx//"+ msg.getSubject() + "_").replace("\\", "//"));
+                saveAttachment(msg, (Constant.ROOT_PATH + "//public//docx//" + msg.getSubject() + "_").replace("\\", "//"));
             }
             StringBuffer content = new StringBuffer(30);
             getMailTextContent(msg, content);

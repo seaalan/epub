@@ -23,7 +23,7 @@ public class Word2HtmlUtil {
     /**
      * docx格式word转换为html
      *
-     * @param filePath   docx file path
+     * @param filePath    docx file path
      * @param outFilePath html file out path
      */
     public static Map docx2Html(String filePath, String outFilePath) throws TransformerException, IOException, ParserConfigurationException {
@@ -35,8 +35,8 @@ public class Word2HtmlUtil {
         //XWPFWordExtractor extractor = new XWPFWordExtractor(document);
 
         Map metadata = new HashMap<>();
-        metadata.put("author",document.getProperties().getCoreProperties().getCreator());
-        metadata.put("publisher",document.getProperties().getExtendedProperties().getCompany());
+        metadata.put("author", document.getProperties().getCoreProperties().getCreator());
+        metadata.put("publisher", document.getProperties().getExtendedProperties().getCompany());
 
         XHTMLOptions options = XHTMLOptions.create().indent(4);
         //extract pic from docx file and put it to image Folder e.g.:D://eee//folder//

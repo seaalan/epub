@@ -16,7 +16,7 @@ import java.io.File;
  * Created by alex on 11/30/2015
  */
 public class Check implements Report {
-    public static Boolean check()  {
+    public static Boolean check() {
         File epubFile = new File("D:\\play\\epub\\public\\epub\\epub3.0\\q.epub");
 
         // simple constructor; errors are printed on stderr stream

@@ -3,6 +3,7 @@ package controllers.convert;
 import controllers.crud.AddePub;
 import controllers.crud.CreateePub;
 import controllers.utility.FileUtil;
+import controllers.utility.Html2Xhtml;
 import controllers.utility.HtmlUtil;
 import controllers.utility.Word2HtmlUtil;
 import org.apache.poi.hpsf.SummaryInformation;
@@ -35,7 +36,7 @@ public class DocePub {
     /**
      * convert docx file to ePub file
      *
-     * @param filePath   docx file path e.g.:D://eee.docx
+     * @param filePath    docx file path e.g.:D://eee.docx
      * @param outFilePath html out path e.g.:D://
      */
     public static void docx2ePub(String filePath, String outFilePath) throws IOException {
@@ -45,6 +46,8 @@ public class DocePub {
         try {
             //one: convert docx to html into a folder
             Map metadata = Word2HtmlUtil.docx2Html(filePath, pathWithoutSuffix);
+
+            Html2Xhtml.docxhtml2Xhtml(pathWithoutSuffix + ".xhtml", pathWithoutSuffix + ".xhtml");
             //two: create epub from html folder
             CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub", metadata);
         } catch (TransformerException e) {
@@ -53,10 +56,11 @@ public class DocePub {
             e.printStackTrace();
         }
     }
+
     /**
      * convert docx file to ePub file
      *
-     * @param filePath   docx file path e.g.:D://eee.docx
+     * @param filePath docx file path e.g.:D://eee.docx
      */
     public static void docx2ePubWithManyChapter(String filePath, String outFilePath) throws Exception {
         String nameWithoutSuffix = FileUtil.getFileName(filePath, false);

@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
  * Created by alex on 11/27/2015
  */
 public class Html2Xhtml {
-
     public static void html2Xhtml(String filePath, String outFilePath) throws FileNotFoundException {
 
         try {
@@ -18,6 +17,30 @@ public class Html2Xhtml {
                     "<html xmlns=\"http://www.w3.org/1999/xhtml\">";
             // 替换掉模板中相应的地方
             content = content.replaceAll("<html>", head);
+
+            FileUtil.createFolder(FileUtil.getFilePath(outFilePath));
+            FileUtil.write(content, outFilePath, "UTF-8");
+        } catch (Exception e) {
+            System.out.print(e.toString());
+        }
+    }
+
+    public static void docxhtml2Xhtml(String filePath, String outFilePath) throws FileNotFoundException {
+
+        try {
+            String content = FileUtil.read(filePath, "UTF-8");
+            String head = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\n" +
+                    "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
+                    "<html xmlns=\"http://www.w3.org/1999/xhtml\">";
+
+            String style = "<style type=\"text/css\">";
+            String title = "</style><title>xxx</title>";
+            String img = "<img alt=\"xxx\" ";
+            // 替换掉模板中相应的地方
+            content = content.replaceAll("<html>", head);
+            content = content.replaceAll("<style>", style);
+            content = content.replaceAll("</style>", title);
+            content = content.replaceAll("<img ", img);
 
             FileUtil.createFolder(FileUtil.getFilePath(outFilePath));
             FileUtil.write(content, outFilePath, "UTF-8");

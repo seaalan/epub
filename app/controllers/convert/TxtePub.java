@@ -23,7 +23,7 @@ public class TxtePub {
     /**
      * convert docx file to ePub file
      *
-     * @param filePath   docx file path e.g.:D://eee.docx
+     * @param filePath    docx file path e.g.:D://eee.docx
      * @param outFilePath html out path e.g.:D://
      */
     public static void txt2ePub(String filePath, String outFilePath) throws IOException {
@@ -46,15 +46,15 @@ public class TxtePub {
         Txt2HtmlUtil.txt2Html(txtContent, pathWithoutSuffix + ".html");
         //two: create epub from html folder
         Map metadata = new HashMap<>();
-        metadata.put("author","");
-        metadata.put("publisher","");
+        metadata.put("author", "");
+        metadata.put("publisher", "");
         CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub", metadata);
     }
 
     /**
      * convert docx file to ePub file
      *
-     * @param filePath   docx file path e.g.:D://eee.docx
+     * @param filePath    docx file path e.g.:D://eee.docx
      * @param outFilePath html out path e.g.:D://
      */
     public static void txt2ePubWithManyChapter(String filePath, String outFilePath) throws IOException {
@@ -78,8 +78,8 @@ public class TxtePub {
         HtmlUtil.html2ParagraphHtml(pathWithoutSuffix.replace("//", "\\"));
         //two: create epub from html folder
         Map metadata = new HashMap<>();
-        metadata.put("author","");
-        metadata.put("publisher","");
+        metadata.put("author", "");
+        metadata.put("publisher", "");
         CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub", metadata);
     }
 }

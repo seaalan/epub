@@ -20,7 +20,8 @@ import java.util.Iterator;
 public class Zip {
     /**
      * 解压缩
-     * @param warPath 包地址
+     *
+     * @param warPath   包地址
      * @param unzipPath 解压后地址
      */
     public static void unzip(String warPath, String unzipPath) {
@@ -56,8 +57,9 @@ public class Zip {
 
     /**
      * 压缩
+     *
      * @param destFile 创建的地址及名称
-     * @param zipDir 要打包的目录
+     * @param zipDir   要打包的目录
      */
     public static void zip(String destFile, String zipDir) {
         File outFile = new File(destFile);
@@ -80,7 +82,7 @@ public class Zip {
             while (files.hasNext()) {
                 File file = files.next();
                 String name = file.getName();
-                if(name.equals("mimetype")){
+                if (name.equals("mimetype")) {
                     mimetypeFile = file;
                     continue;
                 }

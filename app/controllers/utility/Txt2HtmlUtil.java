@@ -16,7 +16,7 @@ public class Txt2HtmlUtil {
 
             String[] stringArrary = content.split("<br/>");
             String contentWithManyParagraph = "";
-            for(String string : stringArrary){
+            for (String string : stringArrary) {
                 contentWithManyParagraph = contentWithManyParagraph + "<p>" + string + "</p>";
             }
 

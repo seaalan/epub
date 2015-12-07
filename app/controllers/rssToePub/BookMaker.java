@@ -1,12 +1,17 @@
 package controllers.rssToePub;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import com.sun.syndication.feed.synd.SyndContent;
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.io.SyndFeedInput;
+import com.sun.syndication.io.XmlReader;
+import nl.siegmann.epublib.domain.*;
+import nl.siegmann.epublib.epub.EpubWriter;
+import org.apache.log4j.Logger;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
+
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -16,31 +21,13 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import nl.siegmann.epublib.domain.Author;
-import nl.siegmann.epublib.domain.Book;
-import nl.siegmann.epublib.domain.MediaType;
-import nl.siegmann.epublib.domain.Resource;
-import nl.siegmann.epublib.domain.TOCReference;
-import nl.siegmann.epublib.epub.EpubWriter;
-
-import org.apache.log4j.Logger;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
-
-import com.sun.syndication.feed.synd.SyndContent;
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
-
 public class BookMaker {
     private Logger log = Logger.getLogger(BookMaker.class);
 
     /**
      * Parse configuration file
-     * 
-     * @param configFilePath
-     *            Configuration file path
+     *
+     * @param configFilePath Configuration file path
      * @return
      */
     protected BookConfig parseConfig(String configFilePath) {
@@ -62,9 +49,8 @@ public class BookMaker {
 
     /**
      * Read content from feeds
-     * 
-     * @param config
-     *            Configuration
+     *
+     * @param config Configuration
      * @return
      */
     protected ArrayList<SyndFeed> readFeeds(BookConfig config) {
@@ -89,13 +75,10 @@ public class BookMaker {
 
     /**
      * Make epub book
-     * 
-     * @param config
-     *            Configuration
-     * @param feeds
-     *            Feeds content
-     * @param outputFilePath
-     *            Output epub book path
+     *
+     * @param config         Configuration
+     * @param feeds          Feeds content
+     * @param outputFilePath Output epub book path
      */
     public void make(String configFilePath, String outputFilePath) {
         BookConfig config = this.parseConfig(configFilePath);

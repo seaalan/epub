@@ -16,8 +16,8 @@ public class EmailePub {
     /**
      * convert email file to ePub file
      *
-     * @param emailSubject   docx file path e.g.:D://eee
-     * @param outFilePath html out path e.g.:D://
+     * @param emailSubject docx file path e.g.:D://eee
+     * @param outFilePath  html out path e.g.:D://
      */
     public static void email2ePub(String emailSubject, String outFilePath) throws Exception {
         String nameWithoutSuffix = emailSubject;//e.g.:sea
@@ -30,16 +30,16 @@ public class EmailePub {
 
         //two: create epub from html folder
         Map metadata = new HashMap<>();
-        metadata.put("author","");
-        metadata.put("publisher","");
+        metadata.put("author", "");
+        metadata.put("publisher", "");
         CreateePub.createePubFromFolder(outFilePath + nameWithoutSuffix, pathWithoutSuffix + ".epub", metadata);
     }
 
     /**
      * convert email file to ePub file
      *
-     * @param emailSubject   docx file path e.g.:D://eee
-     * @param outFilePath html out path e.g.:D://
+     * @param emailSubject docx file path e.g.:D://eee
+     * @param outFilePath  html out path e.g.:D://
      */
     public static String emailAttachment2ePub(String emailSubject, String outFilePath) throws Exception {
         //save email attachment into a folder

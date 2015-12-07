@@ -81,7 +81,8 @@ public class FileUtil {
 
     /**
      * 创建路径
-     * @param   folderPath
+     *
+     * @param folderPath
      * @return 单个文件删除成功返回true，否则返回false
      */
     public static boolean createFolder(String folderPath) {
@@ -99,7 +100,8 @@ public class FileUtil {
 
     /**
      * 删除单个文件
-     * @param   filePath    被删除文件的文件名
+     *
+     * @param filePath 被删除文件的文件名
      * @return 单个文件删除成功返回true，否则返回false
      */
     public static boolean deleteFile(String filePath) {
@@ -127,7 +129,7 @@ public class FileUtil {
     /**
      * extract file name form the given file path
      *
-     * @param fileFullPath      path to the file, like 'c:/test.jpg', 'c:\\test.jpg'
+     * @param fileFullPath  path to the file, like 'c:/test.jpg', 'c:\\test.jpg'
      * @param withExtention indicate contain file.extention. true : contain | false : ignore
      * @return fileName file.name;
      */

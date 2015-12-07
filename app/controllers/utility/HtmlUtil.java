@@ -17,9 +17,10 @@ public class HtmlUtil {
 
     /**
      * 从文件加载html文件
+     *
      * @return Document
      */
-    public static Document parseDocumentFromFile(String filePath){
+    public static Document parseDocumentFromFile(String filePath) {
         File input = new File(filePath);
         //File input = new File("/tmp/input.html");
         Document docx = null;
@@ -35,6 +36,7 @@ public class HtmlUtil {
 
     /**
      * 将html文件按段落分解为多个html
+     *
      * @return Document
      */
     public static void html2ParagraphHtml(String filePath) {

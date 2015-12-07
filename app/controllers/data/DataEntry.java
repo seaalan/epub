@@ -14,7 +14,7 @@ import java.util.List;
  * <p>
  * Created by alex on 11/24/2015
  */
-public class DataEntry extends Controller{
+public class DataEntry extends Controller {
 
     public static void updateePub(Form<Epub> ePubForm) {
         Epub epub = Epub.findById(ePubForm.get().id.toString());
@@ -27,7 +27,7 @@ public class DataEntry extends Controller{
     public static void saveePub(Book book, String filePath) {
         Epub epub = new Epub();
         epub.title = book.getMetadata().getTitles().get(0);
-        epub.author =  book.getMetadata().getAuthors().get(0).toString();
+        epub.author = book.getMetadata().getAuthors().get(0).toString();
         epub.publisher = book.getMetadata().getPublishers().get(0);
         epub.url = filePath;
         epub.save();
@@ -35,36 +35,36 @@ public class DataEntry extends Controller{
 
     public static List<Epub> searchePub(Form<Epub> ePubForm) {
         List<Epub> epubList = Epub.find.where()
-                                .eq("title", ePubForm.get().title)
-                                .eq("author", ePubForm.get().author)
-                                .eq("publisher", ePubForm.get().publisher)
-                                .findList();
+                .eq("title", ePubForm.get().title)
+                .eq("author", ePubForm.get().author)
+                .eq("publisher", ePubForm.get().publisher)
+                .findList();
         //Example: Create the query using the API.
         List<Epub> epubList1 =
                 Ebean.find(Epub.class)
                         //.fetch("title")
                         .where()
-                        .like("title",ePubForm.get().title+"%")
+                        .like("title", ePubForm.get().title + "%")
                         .orderBy("id desc")
                         .setMaxRows(10)
                         .findList();
         //Example: The same query using the query language
-        String oql =    " find epub "
-                        //+" fetch title "
-                        +" where title like :title ";
-        if(ePubForm.get().author != null && ePubForm.get().author != ""){
+        String oql = " find epub "
+                //+" fetch title "
+                + " where title like :title ";
+        if (ePubForm.get().author != null && ePubForm.get().author != "") {
             oql = oql + " and author = :author ";
         }
-        if(ePubForm.get().publisher != null && ePubForm.get().publisher != ""){
+        if (ePubForm.get().publisher != null && ePubForm.get().publisher != "") {
             oql = oql + " and publisher = :publisher ";
         }
         oql = oql + " limit 10 ";
         Query<Epub> query = Ebean.createQuery(Epub.class, oql);
-        query.setParameter("title", ePubForm.get().title+"%");
-        if(ePubForm.get().author != null && ePubForm.get().author != ""){
+        query.setParameter("title", ePubForm.get().title + "%");
+        if (ePubForm.get().author != null && ePubForm.get().author != "") {
             query.setParameter("author", ePubForm.get().author);
         }
-        if(ePubForm.get().publisher != null && ePubForm.get().publisher != ""){
+        if (ePubForm.get().publisher != null && ePubForm.get().publisher != "") {
             query.setParameter("publisher", ePubForm.get().publisher);
         }
         List<Epub> epubList2 = query.findList();

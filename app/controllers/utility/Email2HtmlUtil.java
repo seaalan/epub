@@ -57,10 +57,10 @@ public class Email2HtmlUtil {
         String emailContent = "";
         String filePath = "";
         String returns = "";
-        if(outFilePath.equals("")){
+        if (outFilePath.equals("")) {
             emailContent = parseMessageContent(messages, emailSubject);
             returns = emailContent;
-        }else{
+        } else {
             filePath = parseMessageAttachment(messages, emailSubject, outFilePath);
             returns = filePath;
         }
@@ -85,7 +85,7 @@ public class Email2HtmlUtil {
         for (int i = 0; i < 1; i++) {
 //        for (int i = 0, count = 1; i < count; i++) {
 //            MimeMessage msg = (MimeMessage) messages[i];
-            MimeMessage msg = (MimeMessage) messages[messages.length-1];
+            MimeMessage msg = (MimeMessage) messages[messages.length - 1];
             if (!getSubject(msg).equals(emailSubject)) continue;//find the same subject email
             System.out.println("------------------解析第" + msg.getMessageNumber() + "封邮件-------------------- ");
             System.out.println("主题: " + getSubject(msg));
@@ -118,7 +118,7 @@ public class Email2HtmlUtil {
         String filePath = "";
         // 解析所有邮件
         for (int i = 0; i < 1; i++) {
-            MimeMessage msg = (MimeMessage) messages[messages.length-1];
+            MimeMessage msg = (MimeMessage) messages[messages.length - 1];
             System.out.println("主题: " + getSubject(msg));
             System.out.println("发件人: " + getFrom(msg));
             System.out.println("收件人：" + getReceiveAddress(msg, null));
