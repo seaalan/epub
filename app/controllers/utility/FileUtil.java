@@ -80,6 +80,38 @@ public class FileUtil {
     }
 
     /**
+     * 文件的写入(按数组逐行写入)
+     * @param outFilePath(文件输出路径)
+     * @param lines
+     * @throws IOException
+     */
+    public static void writeByLine(String outFilePath,List<String> lines) throws IOException {
+        FileWriter fw = new FileWriter(outFilePath);
+        PrintWriter out=new PrintWriter(fw);
+        for(int i=0;i<lines.size();i++) {
+            out.write(lines.get(i));
+            out.println();
+            out.flush();
+        }
+        fw.close();
+        out.close();
+    }
+
+    public static void writeByLine(String line, String outFilePath) {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(outFilePath,true);
+            String c = line+"\r\n";
+            fw.write(c);
+            fw.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            System.out.println("write fail");
+            System.exit(-1);
+        }
+    }
+
+    /**
      * 创建路径
      *
      * @param folderPath

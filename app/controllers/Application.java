@@ -506,7 +506,7 @@ public class Application extends Controller {
      */
     public static Result epub2ToEpub3() {
         try {
-            Epub2ToEpub3.epub2ToEpub3("D:\\eee1.epub", "D:\\eee1C1\\");
+            Epub2ToEpub3.epub2ToEpub31("D:\\eee1.epub", "D:\\eee1C1\\");
         } catch (IOException e) {
             e.printStackTrace();
         }
