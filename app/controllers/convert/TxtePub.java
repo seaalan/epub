@@ -4,7 +4,7 @@ import controllers.crud.AddePub;
 import controllers.crud.CreateePub;
 import controllers.utility.FileUtil;
 import controllers.utility.HtmlUtil;
-import controllers.utility.Txt2HtmlUtil;
+import controllers.utility.Txt2XhtmlUtil;
 
 import java.io.*;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class TxtePub {
             txtContent = txtContent + lineTxt + "<br/>";
         }
         //one: convert txt to html into a folder
-        Txt2HtmlUtil.txt2Html(txtContent, pathWithoutSuffix + ".html");
+        Txt2XhtmlUtil.txt2Xhtml(txtContent, pathWithoutSuffix + ".xhtml");
         //two: create epub from html folder
         Map metadata = new HashMap<>();
         metadata.put("author", "");
@@ -74,7 +74,7 @@ public class TxtePub {
             txtContent = txtContent + lineTxt + "<br/>";
         }
         //one: convert txt to html into a folder
-        Txt2HtmlUtil.txt2Html(txtContent, pathWithoutSuffix + ".html");
+        Txt2XhtmlUtil.txt2Xhtml(txtContent, pathWithoutSuffix + ".xhtml");
         HtmlUtil.html2ParagraphHtml(pathWithoutSuffix.replace("//", "\\"));
         //two: create epub from html folder
         Map metadata = new HashMap<>();

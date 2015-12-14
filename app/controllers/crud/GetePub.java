@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GetePub {
-    private static String filePath = "D:\\play\\epub\\rrrr.epub";
+    private static String filePath = "D:\\play\\epub\\public\\epub\\demo epub3.0\\eee1.epub";
 
     public static List<Map<String, Object>> getePub() {
         EpubReader epubReader = new EpubReader();

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no' ?>
+<package version="3.0" unique-identifier="BookId" xmlns="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <metadata>
+    <dc:identifier id="BookId">5e9b7226-7629-4770-a176-f8b6010a14ed</dc:identifier>
+    <dc:title>eee</dc:title>
+    <dc:publisher>a publisher</dc:publisher>
+    <dc:creator> alex</dc:creator>
+    <dc:date>2015-12-07</dc:date>
+    <dc:language>en</dc:language>
+    <meta name="cover" content="image_1" />
+    <meta name="generator" content="EPUBLib version 3.0" />
+    <meta property="dcterms:modified">2011-01-01T12:00:00Z</meta>
+  </metadata>
+  <manifest>
+    <item id="nav" href="nav.xhtml" properties="nav" media-type="application/xhtml+xml"/>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="image_1" href="folder/word/media/image1.jpg" media-type="image/jpeg" />
+    <item id="item_2" href="eee.xhtml" media-type="application/xhtml+xml" />
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="item_2" />
+  </spine>
+  <guide>
+    <reference type="cover" href="eee.xhtml" title="cover" />
+  </guide>
+</package>

@@ -2,7 +2,7 @@ package controllers.convert;
 
 import controllers.crud.CreateePub;
 import controllers.utility.Email2HtmlUtil;
-import controllers.utility.Txt2HtmlUtil;
+import controllers.utility.Txt2XhtmlUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +26,7 @@ public class EmailePub {
         //one: convert email to html into a folder
         //String emailContent = Email2HtmlUtil.receive(emailSubject);
         String emailContent = Email2HtmlUtil.receiveEmails(emailSubject, "");
-        Txt2HtmlUtil.txt2Html(emailContent, pathWithoutSuffix + ".html");
+        Txt2XhtmlUtil.txt2Xhtml(emailContent, pathWithoutSuffix + ".xhtml");
 
         //two: create epub from html folder
         Map metadata = new HashMap<>();

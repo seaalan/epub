@@ -7,9 +7,9 @@ import controllers.constant.Constant;
  * <p>
  * Created by alex on 11/18/2015
  */
-public class Txt2HtmlUtil {
+public class Txt2XhtmlUtil {
 
-    public static void txt2Html(String content, String outFilePath) {
+    public static void txt2Xhtml(String content, String outFilePath) {
         try {
             String templateContent = "";
             templateContent = FileUtil.read(Constant.HTML_TEMPLATE_PATH, "UTF-8");
