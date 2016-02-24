@@ -42,7 +42,7 @@ Contact Form 7z：
 
 建立后将shorcode [contact-form-7 id="138" title="CONTACT US_PARTNER"]拷贝到page中使用
 
-## 2.3其他配置
+## 2.3 其他配置
 
 - Mail中设置从哪里发送到哪里，如上图，即用户填写信息后，这些信息将由support@educationaxis.com
 发送给seaalan@163.com 。有时候wordpress无法发送邮件，可以使用插件配置SMTP。
