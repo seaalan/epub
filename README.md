@@ -1,6 +1,4 @@
-
-
-# 1. 用户邮件订阅插件：newsletter
+# 1. 用户邮件订阅插件：newsletter 
 
 官方网址：[newsletter](http://www.thenewsletterplugin.com/)
 
@@ -82,4 +80,155 @@ Settings -- Header and Footer -- Page head and footer
 - -- Code to be added on HEAD section of every page 中写入头部代码，页面中使用<?php wp_head(); ?>引入。
 - -- Code to be added before the end of the page 中写入尾部代码，页面中使用<?php wp_footer(); ?>引入。
 
+# 6. 代码
 
+## 6.1 page
+
+### 6.1.1 landing
+
+``` html
+<div class="main-content">
+<div class="landing">
+<div class="common-header landing-header">
+<div class="container">
+<h2>WE WANT EVERYONE ON EARTH
+TO GET THE EDUCATION THEY NEED</h2>
+Introducing a fully customizable way for schools to find students
+</div>
+</div>
+<div class="common-body container">
+<h2 class="line-side">HOW TO GET INVOLVED</h2>
+INTRO COPY NEEDED HERE
+<div class="common-item clearfix">
+<div class="col-md-6">
+<div class="landing-item">
+<img src="http://localhost/wp/wp-content/themes/EDUCATION/images/smart_protrait.png" alt="" />
+<h3>GET MORE STUDENTS</h3>
+Find out how EducationAxis can send you qualified student leads
+</div>
+<button class="btn btn-common landing-item-btn btn-lg">LEARN MORE</button>
+</div>
+<div class="col-md-6">
+<div class="landing-item">
+<img src="http://localhost/wp/wp-content/themes/EDUCATION/images/smart_doctoria.png" alt="" />
+<h3>RECOMMEND SCHOOLS</h3>
+We'll pay you to refer students to schools from your website
+</div>
+<button class="btn btn-common landing-item-btn btn-lg">LEARN MORE</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+```
+### 6.1.2 partner
+
+``` html
+<div class="main-content">
+<div class="partner">
+<div class="common-header partner-header">
+<div class="container">
+<h2>WE WANT EVERYONE ON EARTH
+TO GET THE EDUCATION THEY NEED</h2>
+<h3>(We'll even pay you to join us)</h3>
+EducationAxis has created a tool that lets you recommend amazing schools to prospective students.
+People find the right schools, schools find the right people, and you get a commission for making it happen.
+</div>
+</div>
+<div class="common-body container">
+<h2 class="line-side">GET PAID TO RECOMMEND SCHOOLS</h2>
+<p class="partner-contact">WE WILL INVITE PREFERRED PARTNERS TO TRY THE TOOL SOON: SIGN UP NOW TO BE THE FIRST TO USE IT</p>
+<div class="common-item partner-item">
+<div class="form-inline common-form">
+<h2>JOIN THE WAITING LIST</h2>
+[contact-form-7 id="138" title="CONTACT US_PARTNER"] 
+</div>
+</div>
+</div>
+</div>
+</div>
+```
+### 6.1.3 school
+
+``` html
+<div class="main-content">
+<div class="school">
+<div class="common-header school-header">
+<div class="container">
+<h2>WE CONNECT STUDENTS WITH
+THE BEST SCHOOLS</h2>
+EducationAxis is on a mission to help the world's prospective students find their ideal schools.
+Show your school be on the list?
+</div>
+</div>
+<div class="common-body container">
+<div class="school-send">
+<h2 class="line-side">WE SEND YOU TARGETED STUDENT INQUIRES</h2>
+<p class="school-contact">POTENTIAL STUDENTS ARE BOMBARDED WITH GENERIC COLLEGE ADS ALL T HE TIME. THAT RESULTS IN TWO LARGE
+PROBLEMS FOR THE EDUCATION WORLD:</p>
+<div class="send-item-list clearfix">
+<div class="col-md-6 send-item clearfix">
+<img class="col-md-2" src="http://localhost/wp/wp-content/themes/EDUCATION/images/1.png" alt="" />
+<p class="col-md-10">PROSPECTS GET MORE SPECIALIZED SCHOOL SUGGESTIONS</p>
+</div>
+<div class="col-md-6 send-item clearfix">
+<img class="col-md-2" src="http://localhost/wp/wp-content/themes/EDUCATION/images/2.png" alt="" />
+<p class="col-md-10">THE BEST SCHOOLS ARE PUT IN FRONT OF MORE PROSPECTS</p>
+</div>
+<div class="col-md-6 send-item clearfix">
+<img class="col-md-2" src="http://localhost/wp/wp-content/themes/EDUCATION/images/3.png" alt="" />
+<p class="col-md-10">ISSUE NUMBER THREE</p>
+</div>
+<div class="col-md-6 send-item clearfix">
+<img class="col-md-2" src="http://localhost/wp/wp-content/themes/EDUCATION/images/4.png" alt="" />
+<p class="col-md-10">ISSUE NUMBER FOUR</p>
+</div>
+</div>
+</div>
+<div class="school-personInfo">
+<h2>CONTACT US TO GET MORE LEADS</h2>
+<p class="school-contact">IF YOU ARE INTERESTED IN LEARNING HOW EDUCATIONAXIS CAN GIVE YOU MORE TARGETED STUDENT INQUIRIES,
+CONTACT US: WE'LL GET BACK TO YOU.</p>
+<div class="common-item school-item">
+<div class="form-inline common-form">
+<h2>GET YOUR SCHOOL ON THE SHORT LIST</h2>
+[contact-form-7 id="156" title="CONTACT US_SCHOOL"]
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+```
+## 6.2 Header and Footer
+
+### 6.2.1 Header
+
+``` html
+<header class="main-header">
+  <div class="container clearfix">
+    <img class="logo pull-left" src="http://localhost/wp/wp-content/themes/EDUCATION/images/EA_logo-644x144.png" alt="Education Axis" />
+  </div>
+</header>
+```
+
+### 6.2.2 Footer
+
+``` html
+<footer class="main-footer">
+    <div class="contract">
+        <div class="container clearfix">
+            <div class="col-md-9">
+
+                <?php echo do_shortcode("[newsletter_form form='1']"); ?>
+
+            </div>
+            <div class="col-md-3">
+                <h2>ADDRESS</h2>
+                Lineage Media &amp; Solutions 788 11oth Ave. NE, N-2602 Bellevue, WA 98004 000-000-0000
+            </div>
+        </div>
+    </div>
+    <div class="copyright">EducationAxis: Freedom Turns On Education</div>
+</footer>
+```
